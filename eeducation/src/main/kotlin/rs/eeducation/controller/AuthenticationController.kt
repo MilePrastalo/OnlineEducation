@@ -14,6 +14,7 @@ import rs.eeducation.service.AuthenticationService
 
 @RestController
 @RequestMapping("auth")
+@CrossOrigin
 class AuthenticationController(private val authenticationService: AuthenticationService) {
 
     @PostMapping(value = ["login"], consumes = [MediaType.APPLICATION_JSON_VALUE], produces = [MediaType.APPLICATION_JSON_VALUE])

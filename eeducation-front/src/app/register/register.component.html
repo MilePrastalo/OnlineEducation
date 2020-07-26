@@ -1,0 +1,69 @@
+<div class="form-wrapper">
+  <mat-card class="box" id="login-box">
+    <mat-card-header>
+      <mat-icon class="account-icon">account_circle</mat-icon>
+    </mat-card-header>
+
+    <form class="form" [formGroup]="registerForm" (ngSubmit)="registerForm.valid && onRegisterSubmit()">
+      <mat-card-content>
+        <mat-form-field class="field-full-width">
+          <input id="name"
+                 matInput
+                 formControlName="name"
+                 placeholder="Name"/>
+          <mat-error>Name can not be blank.</mat-error>
+        </mat-form-field>
+        <mat-form-field class="field-full-width">
+          <input id="email"
+                 matInput
+                 formControlName="email"
+                 placeholder="Email"/>
+          <mat-error>Email can not be blank.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="field-full-width">
+          <input id="password"
+                 matInput
+                 formControlName="password"
+                 placeholder="Password"
+                 [type]="hide ? 'password':'text'"/>
+          <mat-error>Password can not be blank.</mat-error>
+          <mat-icon matSuffix (click)="hide = !hide">
+            {{hide ? 'visibility' : 'visibility_off'}}
+          </mat-icon>
+        </mat-form-field>
+        <mat-form-field class="field-full-width">
+          <input id="confirmedPassword"
+                 matInput
+                 formControlName="confirmedPassword"
+                 placeholder="confirmedPassword"
+                 [type]="hide ? 'confirmedPassword':'text'"/>
+          <mat-error>Confirmed Password can not be blank.</mat-error>
+          <mat-icon matSuffix (click)="hide = !hide">
+            {{hide ? 'visibility' : 'visibility_off'}}
+          </mat-icon>
+        </mat-form-field>
+        <mat-form-field class="field-full-width">
+          <input id="country"
+                 matInput
+                 formControlName="country"
+                 placeholder="Country"/>
+          <mat-error>Country can not be blank.</mat-error>
+        </mat-form-field>
+        <mat-form-field class="field-full-width">
+          <mat-select id="userType"
+                      matInput
+                      formControlName="userType"
+                      placeholder="userType">
+            <mat-option value="STUDENT">STUDENT</mat-option>
+            <mat-option value="TEACHER">TEACHER</mat-option>
+            <mat-option value="SCHOOL">SCHOOL</mat-option>
+          </mat-select>
+          <mat-error>userType can not be blank.</mat-error>
+        </mat-form-field>
+      </mat-card-content>
+      <button id="registerBt" mat-stroked-button color="primary" class="btn-block">Register</button>
+    </form>
+  </mat-card>
+
+</div>
