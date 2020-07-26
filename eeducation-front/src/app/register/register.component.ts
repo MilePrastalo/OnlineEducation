@@ -78,7 +78,7 @@ export class RegisterComponent implements OnInit {
         if (response != null) {
           this.snackBar.open('Registered successfully.');
           console.log(response.response)
-          this.router.navigateByUrl('index');
+          this.router.navigateByUrl('home');
         }
       }),
       (error => {

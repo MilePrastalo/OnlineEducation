@@ -13,7 +13,7 @@ import kotlin.reflect.KFunction1
 @Component
 class JwtTokenUtil {
 
-    val JWT_TOKEN_VALIDITY = 50 * 60 * 60.toLong()
+    val JWT_TOKEN_VALIDITY = 50 * 60 * 60 * 1000
 
     @Value("\${jwt.secret}")
     private val secret: String? = null
@@ -26,7 +26,7 @@ class JwtTokenUtil {
 
     private fun doGenerateToken(claims: Map<String, Any>, subject: String): String? {
         return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(Date(System.currentTimeMillis()))
-                .setExpiration(Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))
+                .setExpiration(Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY.toLong()))
                 .signWith(SignatureAlgorithm.HS512, secret).compact()
     }
 

@@ -45,11 +45,9 @@ export class LoginComponent implements OnInit {
       (response => {
         if (response != null) {
           localStorage.setItem('token', response.token);
-          const jwt: JwtHelperService = new JwtHelperService();
-          const info = jwt.decodeToken(response.token);
           this.snackBar.open('Logged In successfully.');
           console.log(response.token)
-          this.router.navigateByUrl('index');
+          this.router.navigateByUrl('home');
         }
       }),
       (error => {
