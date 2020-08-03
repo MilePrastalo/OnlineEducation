@@ -14,6 +14,9 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {TokenInterceptorService} from './service/token-interceptor.service';
 import {MaterialModule} from './material/material.module';
 import { HomeComponent } from './home/home.component';
+import { CreateCourseComponent } from './create-course/create-course.component';
+import { EditCourseComponent } from './edit-course/edit-course.component';
+import { TeacherHomeComponent } from './teacher-home/teacher-home.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,10 @@ import { HomeComponent } from './home/home.component';
     LoginComponent,
     RegisterComponent,
     IndexComponent,
-    HomeComponent
+    HomeComponent,
+    CreateCourseComponent,
+    EditCourseComponent,
+    TeacherHomeComponent
   ],
   imports: [
     BrowserModule,

@@ -10,6 +10,8 @@ open class User(@Id
                 @Column
                 var email: String,
                 @Column
+                var name: String,
+                @Column
                 var password: String,
                 @ManyToMany(fetch = FetchType.EAGER)
                 var roles: Collection<Role>,

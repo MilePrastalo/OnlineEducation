@@ -1,18 +1,20 @@
 import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
 import {IndexComponent} from './index/index.component';
 import {LoginComponent} from './login/login.component';
 import {RegisterComponent} from './register/register.component';
 import {HomeComponent} from './home/home.component';
 import {LoggedInGuard} from './guards/logged-in.guard';
 import {NotLoggedInGuard} from './guards/not-logged-in.guard';
+import {CreateCourseComponent} from './create-course/create-course.component';
 
 
 const routes: Routes = [
   {path: '', component: IndexComponent, canActivate: [NotLoggedInGuard]},
   {path: 'login', component: LoginComponent, canActivate: [NotLoggedInGuard]},
   {path: 'register', component: RegisterComponent, canActivate: [NotLoggedInGuard]},
-  {path: 'home', component: HomeComponent, canActivate: [LoggedInGuard]}];
+  {path: 'home', component: HomeComponent, canActivate: [LoggedInGuard]},
+  {path: 'create-course', component: CreateCourseComponent, canActivate: [LoggedInGuard]}];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

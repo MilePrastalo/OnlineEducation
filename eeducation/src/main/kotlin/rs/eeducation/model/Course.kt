@@ -8,7 +8,7 @@ class Course(@Id
              @GeneratedValue
              var id: Long?,
              @OneToMany
-             var lection: Set<Lection>,
+             var lections: Set<Lection>,
              @OneToMany
              var students: Set<Student>,
              @OneToMany
@@ -26,6 +26,8 @@ class Course(@Id
              @Column
              var begins: Date,
              @Column
-             var ends: Date) {
+             var ends: Date,
+             @Column
+             var archivated: Boolean) {
 
 }

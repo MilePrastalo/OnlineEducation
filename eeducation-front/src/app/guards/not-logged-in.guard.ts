@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router} from '@angular/router';
+import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from '@angular/router';
 import {Observable} from 'rxjs';
 import {JwtHelperService} from '@auth0/angular-jwt';
 
@@ -20,7 +20,7 @@ export class NotLoggedInGuard implements CanActivate {
       const date = new Date();
       this.router.navigateByUrl('home');
       if (info.exp * 1000 < date.getTime()) {
-        localStorage.setItem('token', '')
+        localStorage.setItem('token', '');
         return true;
       }
       return false;
