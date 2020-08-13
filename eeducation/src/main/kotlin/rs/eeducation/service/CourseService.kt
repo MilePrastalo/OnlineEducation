@@ -58,10 +58,9 @@ class CourseService(private val courseRepository: CourseRepository,
         //Check if editor is school or teacher of said course if not throw exception
         userService.teacherTeacherCourse(user!!, course)
         //edit course
-        val sdf = SimpleDateFormat("MM/dd/yyyy")
         course.name = editCourseDTO.name
-        course.beginsDate = sdf.parse(editCourseDTO.begins)
-        course.endsDate = sdf.parse(editCourseDTO.ends)
+        course.beginsDate = editCourseDTO.begins
+        course.endsDate = editCourseDTO.ends
         course.descr = editCourseDTO.description
         //save course
         //return course

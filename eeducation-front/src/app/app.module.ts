@@ -18,6 +18,10 @@ import { CreateCourseComponent } from './create-course/create-course.component';
 import { EditCourseComponent } from './edit-course/edit-course.component';
 import { TeacherHomeComponent } from './teacher-home/teacher-home.component';
 import { CourseDetailsComponent } from './course-details/course-details.component';
+import { CourseAbsencesComponent } from './course-absences/course-absences.component';
+import { CourseStudentsComponent } from './course-students/course-students.component';
+import { CourseLessonsComponent } from './course-lessons/course-lessons.component';
+import { CourseTestsComponent } from './course-tests/course-tests.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +33,11 @@ import { CourseDetailsComponent } from './course-details/course-details.componen
     CreateCourseComponent,
     EditCourseComponent,
     TeacherHomeComponent,
-    CourseDetailsComponent
+    CourseDetailsComponent,
+    CourseAbsencesComponent,
+    CourseStudentsComponent,
+    CourseLessonsComponent,
+    CourseTestsComponent
   ],
   imports: [
     BrowserModule,

@@ -12,4 +12,7 @@
   <span *ngFor="let teacher of course.teachers"> {{teacher}} </span>
   School:
   {{course.school}}
+
+  <button (click)="edit()">Edit course</button>
+  <button (click)="archive()">Archive course</button>
 </div>
