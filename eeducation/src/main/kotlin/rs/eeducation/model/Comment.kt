@@ -6,11 +6,13 @@ import javax.persistence.*
 @Entity
 class Comment(@Id
               @GeneratedValue
-              var id: Long,
+              var id: Long?,
               @ManyToOne
               var user: User,
               @OneToMany
               var replies: Set<Comment>,
               @Column
-              var datePosted: Date) {
+              var datePosted: Date,
+              @Column
+              var isReply: Boolean) {
 }

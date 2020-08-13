@@ -4,20 +4,20 @@ import java.util.*
 import javax.persistence.*
 
 @Entity
-class Lection(@Id
+class Lesson(@Id
               @GeneratedValue
               var id: Long?,
-              @ManyToOne
+             @ManyToOne
               var course: Course,
-              @OneToMany
+             @OneToMany
               var absences: Set<Absence>,
-              @OneToMany
+             @OneToMany
               var comments: Set<Comment>,
-              @Column
+             @Column
               var pathToFile: String,
-              @Column
+             @Column
               var name: String,
-              @Column
+             @Column
               var date: Date
 ) {
 }

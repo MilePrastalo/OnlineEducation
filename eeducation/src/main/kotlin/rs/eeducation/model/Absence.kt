@@ -12,7 +12,7 @@ class Absence(@Id
               @ManyToOne
               var course: Course,
               @ManyToOne
-              var lection: Lection,
+              var lesson: Lesson,
               @ManyToOne
               var student: Student) {
 

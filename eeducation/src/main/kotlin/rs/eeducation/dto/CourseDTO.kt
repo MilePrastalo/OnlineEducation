@@ -3,9 +3,9 @@ package rs.eeducation.dto
 import rs.eeducation.model.Course
 import java.util.*
 
-class CourseDTO {
-    var id: Long?
-    var lections: List<String>
+class CourseDTO(course: Course) {
+    var id: Long? = course.id
+    var lessons: List<String>
     var students: List<String>
     var teachers: List<String>
     var school: String
@@ -15,10 +15,10 @@ class CourseDTO {
     var name: String
     var begins: Date
     var ends: Date
+    var description: String
 
-    constructor(course: Course) {
-        id = course.id
-        lections = course.lections.map { lection -> lection.name }
+    init {
+        lessons = course.lessons.map { lesson -> lesson.name }
         students = course.students.map { student -> student.name }
         teachers = course.teachers.map { teacher -> teacher.name }
         school = course.name
@@ -26,7 +26,8 @@ class CourseDTO {
         tests = course.tests.map { test -> TestDTO(test) }
         absences = course.absences.map { absence -> AbsenceDTO(absence) }
         name = course.name
-        begins = course.begins
-        ends = course.ends
+        begins = course.beginsDate
+        ends = course.endsDate
+        description = course.descr
     }
 }

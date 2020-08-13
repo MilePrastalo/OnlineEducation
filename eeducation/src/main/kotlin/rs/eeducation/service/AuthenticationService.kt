@@ -40,21 +40,21 @@ class AuthenticationService(private var authenticationManager: AuthenticationMan
         return when (registrationRequest.userType) {
             UserType.SCHOOL -> {
                 roles.add(roleRepository.findByName("SCHOOL").get())
-                var school = School(null, registrationRequest.email, bc.encode(registrationRequest.password), registrationRequest.name, roles, false, HashSet(), HashSet())
+                var school = School(null, registrationRequest.email, bc.encode(registrationRequest.password), registrationRequest.name, roles, false, HashSet(), HashSet(), HashSet(), HashSet(), HashSet())
                 school = schoolService.save(school)
                 emailService.sendRegistrationEmail(school)
                 "School has been successfully registered"
             }
             UserType.TEACHER -> {
                 roles.add(roleRepository.findByName("TEACHER").get())
-                var teacher = Teacher(null, registrationRequest.email, bc.encode(registrationRequest.password), registrationRequest.name, roles, false, HashSet(), HashSet())
+                var teacher = Teacher(null, registrationRequest.email, bc.encode(registrationRequest.password), registrationRequest.name, roles, false, HashSet(), HashSet(), HashSet())
                 teacher = teacherService.save(teacher)
                 emailService.sendRegistrationEmail(teacher)
                 "Teacher has been successfully registered"
             }
             UserType.STUDENT -> {
                 roles.add(roleRepository.findByName("STUDENT").get())
-                var student = Student(null, registrationRequest.email, registrationRequest.name, bc.encode(registrationRequest.password), roles, false, HashSet(), HashSet(), HashSet())
+                var student = Student(null, registrationRequest.email, registrationRequest.name, bc.encode(registrationRequest.password), roles, false, HashSet(), HashSet(), HashSet(), HashSet(), HashSet())
                 student = studentService.save(student)
                 emailService.sendRegistrationEmail(student)
                 "Student has been successfully registered"

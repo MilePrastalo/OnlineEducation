@@ -3,8 +3,9 @@ package rs.eeducation.service
 import org.springframework.stereotype.Service
 import rs.eeducation.dto.CreateCourseDTO
 import rs.eeducation.dto.EditCourseDTO
-import rs.eeducation.exceptions.UnAuthorizedException
 import rs.eeducation.model.Course
+import rs.eeducation.model.School
+import rs.eeducation.model.Student
 import rs.eeducation.model.Teacher
 import rs.eeducation.repository.CourseRepository
 import java.text.SimpleDateFormat
@@ -21,15 +22,26 @@ class CourseService(private val courseRepository: CourseRepository,
         return courseRepository.findByTeachersContaining(teacher)
     }
 
+    fun findById(courseId: Long): Course {
+        return courseRepository.findById(courseId).orElseThrow { EntityNotFoundException("Course does not exist") }
+    }
+
+    fun save(course: Course): Course {
+        return courseRepository.save(course)
+    }
+
     fun createCourse(createCourseDTO: CreateCourseDTO): Course {
         val teachers = HashSet<Teacher>()
         for (teacher in createCourseDTO.teachers) {
             teachers.add(teacherService.findByEmail(teacher))
         }
-        val school = schoolService.findById(createCourseDTO.school)
-        val sdf = SimpleDateFormat("MM-dd-yyyy")
+        var school: School? = null
+        if (createCourseDTO.school != -1L) {
+            school = schoolService.findById(createCourseDTO.school)
+        }
+        val sdf = SimpleDateFormat("MM/dd/yyyy")
         val course = Course(null, HashSet(), HashSet(), teachers, school, HashSet(), HashSet(), HashSet(),
-                createCourseDTO.name, sdf.parse(createCourseDTO.begins), sdf.parse(createCourseDTO.ends), false)
+                createCourseDTO.name, createCourseDTO.begins, createCourseDTO.ends, false, createCourseDTO.freeToJoin, HashSet(), createCourseDTO.description)
         val savedCourse = courseRepository.save(course)
         for (teacher in teachers) {
             (teacher.courses as MutableSet).add(savedCourse)
@@ -44,14 +56,13 @@ class CourseService(private val courseRepository: CourseRepository,
         //get logged in user
         val user = userService.getLoggedInUser()
         //Check if editor is school or teacher of said course if not throw exception
-        if (!(user in course.teachers || user?.email == course.school.email)) {
-            throw UnAuthorizedException("You dont have permission to edit this course")
-        }
+        userService.teacherTeacherCourse(user!!, course)
         //edit course
-        val sdf = SimpleDateFormat("MM-dd-yyyy")
+        val sdf = SimpleDateFormat("MM/dd/yyyy")
         course.name = editCourseDTO.name
-        course.begins = sdf.parse(editCourseDTO.begins)
-        course.ends = sdf.parse(editCourseDTO.ends)
+        course.beginsDate = sdf.parse(editCourseDTO.begins)
+        course.endsDate = sdf.parse(editCourseDTO.ends)
+        course.descr = editCourseDTO.description
         //save course
         //return course
         return courseRepository.save(course)
@@ -59,8 +70,26 @@ class CourseService(private val courseRepository: CourseRepository,
 
     fun archiveCourse(courseId: Long): Course {
         val course = courseRepository.findById(courseId).orElseThrow { EntityNotFoundException("Course not exist") }
-        course.archivated = true
+        val user = userService.getLoggedInUser()
+        userService.teacherTeacherCourse(user!!, course)
+        course.isArchivated = true
         return courseRepository.save(course)
+    }
+
+    fun joinCourse(courseId: Long): Course {
+        val student = userService.getLoggedInUser() as Student
+        val course = findById(courseId)
+        if (course.freeToJoin) {
+            (course.students as MutableSet).add(student)
+        } else {
+            (course.studentsWaiting as MutableSet).add(student)
+        }
+        return save(course)
+    }
+
+    fun findStudentsOfClass(courseId: Long): List<Student> {
+        val course = findById(courseId)
+        return course.students.toList()
     }
 }
 

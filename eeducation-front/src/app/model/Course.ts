@@ -4,7 +4,7 @@ import {Absence} from './Absence';
 
 export class Course {
   public id: number;
-  public lections: Array<string>;
+  public lessons: Array<string>;
   public students: Array<string>;
   public teachers: Array<string>;
   public school: string;
@@ -14,4 +14,5 @@ export class Course {
   public name: string;
   public begins: Date;
   public ends: Date;
+  public description: string;
 }

@@ -4,6 +4,8 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {Router} from '@angular/router';
 import {CourseService} from '../service/course.service';
 import {CreateCourse} from '../model/CreateCourse';
+import {School} from '../model/School';
+import {TeacherService} from '../service/teacher.service';
 
 @Component({
   selector: 'app-create-course',
@@ -13,9 +15,10 @@ import {CreateCourse} from '../model/CreateCourse';
 export class CreateCourseComponent implements OnInit {
 
   courseForm: FormGroup;
+  schools: Array<School>;
 
   constructor(private formBuilder: FormBuilder, private courseService: CourseService,
-              private snackBar: MatSnackBar, private router: Router) {
+              private snackBar: MatSnackBar, private router: Router, private teacherService: TeacherService) {
   }
 
   get name() {
@@ -38,6 +41,10 @@ export class CreateCourseComponent implements OnInit {
     return this.courseForm.controls.teachers.value as string;
   }
 
+  get description() {
+    return this.courseForm.controls.description.value as string;
+  }
+
 
   ngOnInit(): void {
     this.courseForm = this.formBuilder.group({
@@ -55,18 +62,37 @@ export class CreateCourseComponent implements OnInit {
       ]],
       teachers: ['', [
         Validators.required
+      ]],
+      description: ['', [
+        Validators.required
       ]]
     });
+
+    this.teacherService.getTeacherSchools().subscribe(
+      response => {
+        console.log('succ', response);
+        this.schools = response;
+      },
+      error => {
+        console.log(error);
+        alert(error);
+      }
+    );
   }
 
   onCourseCreate() {
+    console.log(this.begins);
     const t = this.teachers.split(',');
-    const createCourse = new CreateCourse(this.name, this.begins, this.ends, this.school, t);
-    this.courseService.createCourse(createCourse).subscribe(
+    const createCourse = new CreateCourse(this.name, this.begins, this.ends, this.school, t, true, this.description);
+    console.log(createCourse);
+    this.courseService.addCourse(createCourse).subscribe(
       response => {
-
+        console.log(response);
+        this.snackBar.open('Course has been created');
+        this.router.navigateByUrl('');
       },
       error => {
+        this.snackBar.open('Error creating course');
       }
     );
   }

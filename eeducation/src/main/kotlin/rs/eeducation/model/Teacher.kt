@@ -8,5 +8,7 @@ class Teacher(id: Long?, email: String, name: String, password: String, roles: C
               @ManyToMany
               var schools: Set<School>,
               @ManyToMany
-              var courses: Set<Course>) : User(id, email, name, password, roles, confirmed) {
+              var courses: Set<Course>,
+              @ManyToMany
+              var invitedToSchool: Set<School>) : User(id, email, name, password, roles, confirmed) {
 }

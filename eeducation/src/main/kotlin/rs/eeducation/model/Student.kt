@@ -11,5 +11,9 @@ class Student(id: Long?, email: String, name: String, password: String, roles: C
               @OneToMany
               var grades: Set<Grade>,
               @ManyToMany
-              var courses: Set<Course>) : User(id, email, name, password, roles, confirmed) {
+              var courses: Set<Course>,
+              @ManyToMany
+              var schoolsInvited: Set<School>,
+              @ManyToMany
+              var schools: Set<School>) : User(id, email, name, password, roles, confirmed) {
 }

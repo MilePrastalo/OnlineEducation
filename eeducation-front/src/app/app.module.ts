@@ -17,6 +17,7 @@ import { HomeComponent } from './home/home.component';
 import { CreateCourseComponent } from './create-course/create-course.component';
 import { EditCourseComponent } from './edit-course/edit-course.component';
 import { TeacherHomeComponent } from './teacher-home/teacher-home.component';
+import { CourseDetailsComponent } from './course-details/course-details.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { TeacherHomeComponent } from './teacher-home/teacher-home.component';
     HomeComponent,
     CreateCourseComponent,
     EditCourseComponent,
-    TeacherHomeComponent
+    TeacherHomeComponent,
+    CourseDetailsComponent
   ],
   imports: [
     BrowserModule,

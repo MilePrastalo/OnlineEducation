@@ -1,7 +1,7 @@
 package rs.eeducation.repository
 
 import org.springframework.data.jpa.repository.JpaRepository
-import rs.eeducation.model.Lection
+import rs.eeducation.model.Lesson
 
-interface LectionRepository : JpaRepository<Lection, Long> {
+interface LessonRepository : JpaRepository<Lesson, Long> {
 }

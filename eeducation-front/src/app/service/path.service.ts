@@ -5,7 +5,7 @@ import {Injectable} from '@angular/core';
 })
 export class PathService {
 
-  public path = 'http://localhost:8080/'
+  public path = 'http://localhost:8080';
 
   constructor() {
   }

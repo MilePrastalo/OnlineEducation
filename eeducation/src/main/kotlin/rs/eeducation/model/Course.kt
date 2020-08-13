@@ -8,13 +8,13 @@ class Course(@Id
              @GeneratedValue
              var id: Long?,
              @OneToMany
-             var lections: Set<Lection>,
-             @OneToMany
+             var lessons: Set<Lesson>,
+             @ManyToMany(mappedBy = "courses")
              var students: Set<Student>,
-             @OneToMany
+             @ManyToMany(mappedBy = "courses")
              var teachers: Set<Teacher>,
              @ManyToOne
-             var school: School,
+             var school: School?,
              @OneToMany
              var grades: Set<Grade>,
              @OneToMany
@@ -24,10 +24,16 @@ class Course(@Id
              @Column
              var name: String,
              @Column
-             var begins: Date,
+             var beginsDate: Date,
              @Column
-             var ends: Date,
+             var endsDate: Date,
              @Column
-             var archivated: Boolean) {
+             var isArchivated: Boolean,
+             @Column
+             var freeToJoin: Boolean,
+             @OneToMany
+             var studentsWaiting: Set<Student>,
+             @Column
+             var descr: String) {
 
 }

@@ -1,0 +1,15 @@
+<div>
+  {{course.name}}
+  Begins {{course.begins | date}}
+  Ends {{course.ends | date}}
+
+  Description:
+  <p>
+    {{course.description}}
+  </p>
+
+  Teachers:
+  <span *ngFor="let teacher of course.teachers"> {{teacher}} </span>
+  School:
+  {{course.school}}
+</div>

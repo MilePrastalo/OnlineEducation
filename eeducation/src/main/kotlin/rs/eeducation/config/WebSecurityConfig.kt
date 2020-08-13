@@ -52,6 +52,7 @@ class WebSecurityConfig(
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and() // for unauthorized request send 401 error
                 .exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint).and() // don't authenticate this particular request
                 .authorizeRequests().antMatchers("/auth/**").permitAll() // all other requests need to be authenticated
+                .antMatchers(HttpMethod.OPTIONS, "/api/**").permitAll()
                 .anyRequest().authenticated().and()
 
         // intercept every request and add filter

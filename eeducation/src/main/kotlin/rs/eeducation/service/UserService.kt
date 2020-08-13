@@ -4,6 +4,8 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
+import rs.eeducation.exceptions.UnAuthorizedException
+import rs.eeducation.model.Course
 import rs.eeducation.model.User
 import rs.eeducation.repository.UserRepository
 
@@ -30,5 +32,9 @@ class UserService(private var userRepository: UserRepository) {
         return findByEmail(email)
     }
 
-
+    fun teacherTeacherCourse(user: User, course: Course){
+        if (!(user in course.teachers || user?.email == course.school?.email)) {
+            throw UnAuthorizedException("You dont have permission to edit this course")
+        }
+    }
 }

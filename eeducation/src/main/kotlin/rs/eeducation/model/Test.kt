@@ -16,5 +16,7 @@ class Test(@Id
            @Enumerated(EnumType.STRING)
            var testType: TestType,
            @OneToMany
-           var questions: Set<Question>) {
+           var questions: Set<Question>,
+           @ManyToOne
+           var course: Course) {
 }
