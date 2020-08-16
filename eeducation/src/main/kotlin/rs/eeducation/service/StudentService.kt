@@ -16,4 +16,8 @@ class StudentService(private val studentRepository: StudentRepository) {
         return studentRepository.findById(studentId).orElseThrow { EntityNotFoundException("Student not found") }
     }
 
+    fun findByEmail(email: String): Student {
+        return studentRepository.findByEmail(email).orElseThrow { EntityNotFoundException("Student not found") }
+    }
+
 }

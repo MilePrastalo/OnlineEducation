@@ -1,0 +1,7 @@
+<div>
+  <div *ngFor="let school of schools">
+    <span>{{school.name}}</span>
+    <button (click)="acceptInvitation(school.id)">Accept</button>
+    <button (click)="rejectInvitation(school.id)">Reject</button>
+  </div>
+</div>

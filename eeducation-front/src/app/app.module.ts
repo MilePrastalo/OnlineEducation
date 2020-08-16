@@ -22,6 +22,8 @@ import { CourseAbsencesComponent } from './course-absences/course-absences.compo
 import { CourseStudentsComponent } from './course-students/course-students.component';
 import { CourseLessonsComponent } from './course-lessons/course-lessons.component';
 import { CourseTestsComponent } from './course-tests/course-tests.component';
+import { SchoolDetailsComponent } from './school-details/school-details.component';
+import { SchoolInvitationsComponent } from './school-invitations/school-invitations.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { CourseTestsComponent } from './course-tests/course-tests.component';
     CourseAbsencesComponent,
     CourseStudentsComponent,
     CourseLessonsComponent,
-    CourseTestsComponent
+    CourseTestsComponent,
+    SchoolDetailsComponent,
+    SchoolInvitationsComponent
   ],
   imports: [
     BrowserModule,

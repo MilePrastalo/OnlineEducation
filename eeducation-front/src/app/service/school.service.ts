@@ -3,6 +3,7 @@ import {PathService} from './path.service';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {UserBasic} from '../model/UserBasic';
+import {School} from '../model/School';
 
 @Injectable({
   providedIn: 'root'
@@ -31,8 +32,8 @@ export class SchoolService {
     return this.http.delete(this.path + '/teacher_request/' + teacherId);
   }
 
-  inviteTeacher(teacherId: number) {
-    return this.http.post(this.path + '/invite_teacher/' + teacherId, null);
+  inviteTeacher(teacherEmail: string) {
+    return this.http.post(this.path + '/invite_teacher/' + teacherEmail, null);
   }
 
   askToJoinSchoolStudent(schoolId: number) {
@@ -51,8 +52,8 @@ export class SchoolService {
     return this.http.delete(this.path + '/student_request/' + studentId);
   }
 
-  inviteStudent(studentId: number) {
-    return this.http.post(this.path + '/invite_teacher/' + studentId, null);
+  inviteStudent(studentEmail: string) {
+    return this.http.post(this.path + '/invite_teacher/' + studentEmail, null);
   }
 
   acceptSchoolInvitation(schoolId: number) {
@@ -61,5 +62,10 @@ export class SchoolService {
 
   rejectSchoolInvitation(schoolId: number) {
     return this.http.delete(this.path + '/invitation/' + schoolId);
+  }
+
+  getSchoolInvitations() {
+    return this.http.get<Array<School>>(this.path + '/schoolInvitations');
+
   }
 }

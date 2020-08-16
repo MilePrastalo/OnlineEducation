@@ -9,6 +9,7 @@ import {NotLoggedInGuard} from './guards/not-logged-in.guard';
 import {CreateCourseComponent} from './create-course/create-course.component';
 import {EditCourseComponent} from './edit-course/edit-course.component';
 import {CourseDetailsComponent} from './course-details/course-details.component';
+import {SchoolDetailsComponent} from './school-details/school-details.component';
 
 
 const routes: Routes = [
@@ -18,8 +19,8 @@ const routes: Routes = [
   {path: 'home', component: HomeComponent, canActivate: [LoggedInGuard]},
   {path: 'create-course', component: CreateCourseComponent, canActivate: [LoggedInGuard]},
   {path: 'edit-course/:id', component: EditCourseComponent, canActivate: [LoggedInGuard]},
-  {path: 'course/:id', component: CourseDetailsComponent, canActivate: [LoggedInGuard]}
-
+  {path: 'course/:id', component: CourseDetailsComponent, canActivate: [LoggedInGuard]},
+  {path: 'school/:id', component: SchoolDetailsComponent, canActivate: [LoggedInGuard]}
 ];
 
 @NgModule({

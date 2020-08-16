@@ -1,5 +1,6 @@
 INSERT INTO teacher (id, confirmed,name, password, email) VALUES ('100', 1, 'Ucitelj', '$2a$10$PxvKsblywCsPRpmccc2Id.Vf5bMDvXfRMxUhmhhAL1gxXLcWDAhIa', 'teacher@teacher.com');
-INSERT INTO school (`id`, `confirmed`, `email`, `name`, `password`) VALUES ('101', 1, 'school@school.com', 'awesome school', '$10$PxvKsblywCsPRpmccc2Id.Vf5bMDvXfRMxUhmhhAL1gxXLcWDAhIa');
+INSERT INTO school (`id`, `confirmed`, `email`, `name`, `password`) VALUES ('101', 1, 'school@school.com', 'awesome school', '$2a$10$PxvKsblywCsPRpmccc2Id.Vf5bMDvXfRMxUhmhhAL1gxXLcWDAhIa');
+INSERT INTO student (`id`, `confirmed`, `email`, `name`, `password`) VALUES ('102', 1, 'student@student.com', 'student ime', '$2a$10$PxvKsblywCsPRpmccc2Id.Vf5bMDvXfRMxUhmhhAL1gxXLcWDAhIa');
 
 INSERT INTO teacher_schools (`teachers_id`, `schools_id`) VALUES ('100', '101');
 

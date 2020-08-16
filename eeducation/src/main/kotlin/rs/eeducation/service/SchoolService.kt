@@ -5,7 +5,9 @@ import rs.eeducation.model.School
 import rs.eeducation.model.Student
 import rs.eeducation.model.Teacher
 import rs.eeducation.repository.SchoolRepository
+import java.util.*
 import javax.persistence.EntityNotFoundException
+import kotlin.collections.ArrayList
 
 @Service
 class SchoolService(private val schoolRepository: SchoolRepository,
@@ -52,9 +54,10 @@ class SchoolService(private val schoolRepository: SchoolRepository,
         return save(school)
     }
 
-    fun inviteTeacher(teacherId: Long) {
+    fun inviteTeacher(teacherEmailEncoded: String) {
+        val teacherEmail = String(Base64.getDecoder().decode(teacherEmailEncoded))
         val school = userService.getLoggedInUser() as School
-        val teacher = teacherService.findById(teacherId)
+        val teacher = teacherService.findByEmail(teacherEmail)
         (teacher.invitedToSchool as MutableSet).add(school)
         teacherService.save(teacher)
     }
@@ -90,9 +93,10 @@ class SchoolService(private val schoolRepository: SchoolRepository,
         return save(school)
     }
 
-    fun inviteStudent(studentId: Long) {
+    fun inviteStudent(studentEmailEncoded: String) {
+        val studentEmail = String(Base64.getDecoder().decode(studentEmailEncoded))
         val school = userService.getLoggedInUser() as School
-        val student = studentService.findById(studentId)
+        val student = studentService.findByEmail(studentEmail)
         (student.schoolsInvited as MutableSet).add(school)
         studentService.save(student)
     }
@@ -129,5 +133,17 @@ class SchoolService(private val schoolRepository: SchoolRepository,
                 studentService.save(user)
             }
         }
+    }
+
+    fun viewInvitations(): List<School> {
+        when (val user = userService.getLoggedInUser()) {
+            is Teacher -> {
+                return user.invitedToSchool.toList()
+            }
+            is Student -> {
+                return user.schoolsInvited.toList()
+            }
+        }
+        return ArrayList()
     }
 }
