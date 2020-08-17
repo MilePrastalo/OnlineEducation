@@ -1,0 +1,40 @@
+<div>
+  <mat-card class="box" id="login-box">
+
+    <form class="form" [formGroup]="absenceForm" (ngSubmit)="absenceForm.valid && onAbsenceCreate()">
+      <mat-card-content>
+        <mat-form-field class="field-full-width">
+          <mat-select id="student"
+                      formControlName="student"
+                      placeholder="student">
+            <mat-option value="-1">
+              None
+            </mat-option>
+            <mat-option *ngFor="let student of course.students" [value]=student.id>
+              {{student.name}}
+            </mat-option>
+          </mat-select>
+
+          <mat-error>student can not be blank.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="field-full-width">
+          <mat-select id="lesson"
+                      formControlName="lesson"
+                      placeholder="lesson">
+            <mat-option value="-1">
+              None
+            </mat-option>
+            <mat-option *ngFor="let lesson of course.lessons" [value]=lesson.id>
+              {{lesson.name}}
+            </mat-option>
+          </mat-select>
+
+          <mat-error>lesson can not be blank.</mat-error>
+        </mat-form-field>
+
+      </mat-card-content>
+      <button id="createBt" mat-stroked-button color="primary" class="btn-block">Add absence</button>
+    </form>
+  </mat-card>
+</div>

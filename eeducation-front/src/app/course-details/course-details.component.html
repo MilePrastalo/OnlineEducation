@@ -15,4 +15,10 @@
 
   <button (click)="edit()">Edit course</button>
   <button (click)="archive()">Archive course</button>
+
+  <app-course-absences [course]="course"></app-course-absences>
+  <app-course-lessons [course]="course"></app-course-lessons>
+  <app-course-students [course]="course"></app-course-students>
+  <app-course-tests [course]="course"></app-course-tests>
+  <app-course-grades [course]="course"></app-course-grades>
 </div>

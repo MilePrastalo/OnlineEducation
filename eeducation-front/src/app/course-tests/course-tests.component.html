@@ -1,0 +1,11 @@
+<div>
+  <div *ngFor="let test of tests">
+    <span>{{test.name}}</span>
+    <span>{{test.date | date}}</span>
+    <span>{{test.duration}}</span>
+    <button (click)="takeTest(test.id)">Take test</button>
+  </div>
+  <div>
+    <button (click)="goCreateTest()">Create test</button>
+  </div>
+</div>

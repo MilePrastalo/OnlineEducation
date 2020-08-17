@@ -16,8 +16,13 @@ class GradeService(private val gradeRepository: GradeRepository,
         val student = studentService.findById(addGradeDto.studentId)
         val course = courseService.findById(addGradeDto.courseId)
         userService.teacherTeacherCourse(userService.getLoggedInUser()!!, course)
-        val grade = Grade(null, student, course, addGradeDto.grade)
-        return save(grade)
+        var grade = Grade(null, student, course, addGradeDto.grade)
+        grade = save(grade)
+        (student.grades as MutableSet).add(grade)
+        studentService.save(student)
+        (course.grades as MutableSet).add(grade)
+        courseService.save(course)
+        return grade
     }
 
     fun save(grade: Grade): Grade {

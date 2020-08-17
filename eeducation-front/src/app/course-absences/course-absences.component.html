@@ -1,0 +1,9 @@
+<div>
+  <div *ngFor="let absence of course.absences">
+    <span>{{absence.studentName}}</span>
+    <span>{{absence.lessonName}}</span>
+  </div>
+  <div>
+    <button (click)="addAbsence()">Add absence</button>
+  </div>
+</div>

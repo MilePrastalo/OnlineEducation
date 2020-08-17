@@ -24,6 +24,15 @@ import { CourseLessonsComponent } from './course-lessons/course-lessons.componen
 import { CourseTestsComponent } from './course-tests/course-tests.component';
 import { SchoolDetailsComponent } from './school-details/school-details.component';
 import { SchoolInvitationsComponent } from './school-invitations/school-invitations.component';
+import { CreateTestComponent } from './create-test/create-test.component';
+import { TestComponent } from './test/test.component';
+import { CreateAbsenceComponent } from './create-absence/create-absence.component';
+import { CreateLessonComponent } from './create-lesson/create-lesson.component';
+import { LessonComponent } from './lesson/lesson.component';
+import { CourseGradesComponent } from './course-grades/course-grades.component';
+import { AddGradeComponent } from './add-grade/add-grade.component';
+import { StudentHomeComponent } from './student-home/student-home.component';
+import { StudentGradesComponent } from './student-grades/student-grades.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +50,16 @@ import { SchoolInvitationsComponent } from './school-invitations/school-invitati
     CourseLessonsComponent,
     CourseTestsComponent,
     SchoolDetailsComponent,
-    SchoolInvitationsComponent
+    SchoolInvitationsComponent,
+    CreateTestComponent,
+    TestComponent,
+    CreateAbsenceComponent,
+    CreateLessonComponent,
+    LessonComponent,
+    CourseGradesComponent,
+    AddGradeComponent,
+    StudentHomeComponent,
+    StudentGradesComponent
   ],
   imports: [
     BrowserModule,

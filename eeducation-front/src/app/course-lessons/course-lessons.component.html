@@ -1,0 +1,10 @@
+<div>
+  <div *ngFor="let lesson of course.lessons">
+    <span>{{lesson.name}}</span>
+    <span>{{lesson.date | date}}</span>
+    <button (click)="viewLesson(lesson.id)">View lesson</button>
+  </div>
+  <div>
+    <button (click)="createLesson()">Create Lesson</button>
+  </div>
+</div>

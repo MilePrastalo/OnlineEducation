@@ -1,0 +1,10 @@
+<div>
+  <div *ngFor="let grade of course.grades">
+    <span>{{grade.studentName}}</span>
+    <span>{{grade.grade}}</span>
+  </div>
+
+  <div>
+    <button (click)="addGrade()">Add grade</button>
+  </div>
+</div>
