@@ -14,8 +14,6 @@ class Lesson(@Id
              @OneToMany
               var comments: Set<Comment>,
              @Column
-              var pathToFile: String,
-             @Column
               var name: String,
              @Column
               var date: Date

@@ -29,7 +29,7 @@ class CommentService(private val commentRepository: CommentRepository,
     fun addComment(addCommentDTO: AddCommentDTO): Comment {
         val user = userService.getLoggedInUser()
         val reply = addCommentDTO.replyTo != null
-        var comment = Comment(null, user!!, HashSet(), Date(), reply)
+        var comment = Comment(null, user!!, HashSet(), addCommentDTO.text, Date(), reply)
         comment = commentRepository.save(comment)
 
         if (reply) {
@@ -37,6 +37,9 @@ class CommentService(private val commentRepository: CommentRepository,
             (parentComment.replies as MutableSet).add(comment)
             save(parentComment)
         }
+        val lesson = lessonService.findById(addCommentDTO.lessonId);
+        (lesson.comments as MutableSet).add(comment);
+        lessonService.save(lesson)
         return comment
     }
 

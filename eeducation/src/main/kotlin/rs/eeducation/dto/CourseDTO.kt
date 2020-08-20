@@ -18,7 +18,7 @@ class CourseDTO(course: Course) {
     var description: String
 
     init {
-        lessons = course.lessons.map { lesson -> LessonDto(lesson) }
+        lessons = course.lessons.map { lesson -> LessonDto(lesson,"") }
         students = course.students.map { student -> StudentDto(student) }
         teachers = course.teachers.map { teacher -> teacher.name }
         school = course.name

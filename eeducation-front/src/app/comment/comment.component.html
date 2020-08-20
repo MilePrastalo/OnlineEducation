@@ -1,0 +1,13 @@
+<div>
+  <b>{{comment.user}}</b>
+  {{comment.datePosted|date}}
+  <div>{{comment.text}}</div>
+  <span *ngIf="comment.replies.length>0">
+    Replies
+  </span>
+  <div class="comment-margin">
+    <app-comment *ngFor="let c of comment.replies" [lesson]="lesson" [comment]="c"></app-comment>
+  </div>
+  <button (click)="reply()">Reply</button>
+
+</div>

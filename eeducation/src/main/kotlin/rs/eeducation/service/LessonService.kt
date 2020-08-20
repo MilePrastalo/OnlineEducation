@@ -4,20 +4,17 @@ import org.springframework.stereotype.Service
 import rs.eeducation.dto.CreateLessonDto
 import rs.eeducation.dto.EditLessonDto
 import rs.eeducation.model.Lesson
+import rs.eeducation.model.LessonContent
+import rs.eeducation.repository.LessonContentRepository
 import rs.eeducation.repository.LessonRepository
-import java.io.FileWriter
-import java.io.PrintWriter
-import java.nio.file.Files
-import java.nio.file.Paths
-import java.util.*
 import javax.persistence.EntityNotFoundException
-import kotlin.collections.HashSet
 
 
 @Service
 class LessonService(private val lessonRepository: LessonRepository,
                     private val courseService: CourseService,
-                    private val userService: UserService) {
+                    private val userService: UserService,
+                    private val lessonContentRepository: LessonContentRepository) {
 
     fun findById(lessonId: Long): Lesson {
         return lessonRepository.findById(lessonId).orElseThrow { EntityNotFoundException("Lesson does not exist") }
@@ -31,18 +28,9 @@ class LessonService(private val lessonRepository: LessonRepository,
         val course = courseService.findById(createLessonDto.courseId)
 
         userService.teacherTeacherCourse(userService.getLoggedInUser()!!, course)
-
-        //save to file
-        val path = ""
-        val name = course.name + "_" + createLessonDto.name + Date().time
-
-        val fileWriter = FileWriter("$path/$name")
-        val printWriter = PrintWriter(fileWriter)
-        printWriter.print(createLessonDto.lessonContent)
-        printWriter.close()
-
-        val lesson = save(Lesson(null, course, HashSet(), HashSet(), path, createLessonDto.name, createLessonDto.date))
-
+        val lesson = save(Lesson(null, course, HashSet(), HashSet(), createLessonDto.name, createLessonDto.date))
+        val lessonContent = LessonContent(null, lesson.id!!, createLessonDto.lessonContent)
+        lessonContentRepository.save(lessonContent);
         (course.lessons as MutableSet).add(lesson)
         courseService.save(course)
 
@@ -53,12 +41,9 @@ class LessonService(private val lessonRepository: LessonRepository,
         val course = courseService.findById(editLessonDto.courseId)
         val lesson = findById(editLessonDto.id)
         userService.teacherTeacherCourse(userService.getLoggedInUser()!!, course)
-
-        val fileWriter = FileWriter(lesson.pathToFile, false)
-        val printWriter = PrintWriter(fileWriter)
-        printWriter.print(editLessonDto.lessonContent)
-        printWriter.close()
-
+        val lessonContent = lessonContentRepository.findByLessonId(lesson.id!!)
+        lessonContent.lessonContent = editLessonDto.lessonContent
+        lessonContentRepository.save(lessonContent)
         lesson.name = editLessonDto.name
         lesson.date = editLessonDto.date
         return save(lesson)
@@ -67,12 +52,14 @@ class LessonService(private val lessonRepository: LessonRepository,
     fun deleteLesson(lessonId: Long) {
         val lesson = findById(lessonId)
         val course = lesson.course
+        (course.lessons as MutableSet).remove(course.lessons.find { l->l.id == lesson.id })
+        courseService.save(course)
         userService.teacherTeacherCourse(userService.getLoggedInUser()!!, course)
         lessonRepository.deleteById(lessonId)
     }
 
     fun getLessonContent(lesson: Lesson): String {
-        return String(Files.readAllBytes(Paths.get(lesson.pathToFile)))
+        return lessonContentRepository.findByLessonId(lesson.id!!).lessonContent
     }
 
 }

@@ -1,24 +1,28 @@
 import {Component, OnInit} from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
-import {ImageDialogComponent} from '../image-dialog/image-dialog.component';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {LessonService} from '../service/lesson.service';
+import {MatDialog} from '@angular/material/dialog';
 import {CourseService} from '../service/course.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {ActivatedRoute, Router} from '@angular/router';
-import {CreateLesson} from '../model/CreateLesson';
-import {LessonService} from '../service/lesson.service';
+import {ImageDialogComponent} from '../image-dialog/image-dialog.component';
+import {Lesson} from '../model/Lesson';
+import {EditLesson} from '../model/EditLesson';
 
 @Component({
-  selector: 'app-create-lesson',
-  templateUrl: './create-lesson.component.html',
-  styleUrls: ['./create-lesson.component.scss']
+  selector: 'app-edit-lesson',
+  templateUrl: './edit-lesson.component.html',
+  styleUrls: ['./edit-lesson.component.scss']
 })
-export class CreateLessonComponent implements OnInit {
+export class EditLessonComponent implements OnInit {
+
   textArea: HTMLTextAreaElement;
   preview: HTMLElement;
   image: string;
   lessonForm: FormGroup;
   courseId: number;
+  lessonId: number;
+  lesson: Lesson;
 
   constructor(private lessonService: LessonService,
               public dialog: MatDialog,
@@ -38,7 +42,7 @@ export class CreateLessonComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.courseId = Number(this.route.snapshot.paramMap.get('courseId'));
+    this.lessonId = Number(this.route.snapshot.paramMap.get('id'));
     this.textArea = document.getElementById('textArea') as HTMLTextAreaElement;
     this.preview = document.getElementById('preview') as HTMLElement;
     this.lessonForm = this.formBuilder.group({
@@ -49,6 +53,19 @@ export class CreateLessonComponent implements OnInit {
         Validators.required,
       ]]
     });
+    this.lessonService.getLesson(this.lessonId).subscribe(
+      response => {
+        this.lesson = response;
+        this.textArea.value = response.lessonContent;
+        this.lessonForm.controls.name.setValue(response.name);
+        this.lessonForm.controls.date.setValue(response.date);
+        this.courseId = this.lesson.courseId;
+        this.changePreview();
+      }, error => {
+
+      });
+
+
   }
 
 
@@ -108,11 +125,12 @@ export class CreateLessonComponent implements OnInit {
   }
 
   onLessonSubmit() {
-    const createLesson = new CreateLesson(this.courseId, this.textArea.value, this.name, this.date);
-    this.lessonService.createLesson(createLesson).subscribe(
+    const editLesson = new EditLesson(this.lessonId, this.courseId, this.textArea.value, this.name, this.date);
+    this.lessonService.editLesson(editLesson).subscribe(
       response => {
-        this.router.navigateByUrl('course/' + this.courseId);
+        this.router.navigateByUrl('lesson/' + this.lessonId);
       }
     );
   }
+
 }

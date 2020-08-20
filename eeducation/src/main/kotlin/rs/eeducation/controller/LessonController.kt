@@ -18,7 +18,7 @@ class LessonController(private val lessonService: LessonService) {
     @PostMapping(consumes = [MediaType.APPLICATION_JSON_VALUE])
     fun createLesson(@RequestBody createLessonDto: CreateLessonDto): ResponseEntity<LessonDto> {
         val lesson = lessonService.createLesson(createLessonDto)
-        val dto = LessonDto(lesson.id, lesson.absences.toList(), lesson.comments.toList(), createLessonDto.lessonContent, lesson.name, lesson.date)
+        val dto = LessonDto(lesson, createLessonDto.lessonContent)
         return ResponseEntity(dto, HttpStatus.OK)
     }
 
@@ -26,7 +26,7 @@ class LessonController(private val lessonService: LessonService) {
     @PutMapping(consumes = [MediaType.APPLICATION_JSON_VALUE])
     fun editLesson(@RequestBody editLessonDto: EditLessonDto): ResponseEntity<LessonDto> {
         val lesson = lessonService.editLesson(editLessonDto)
-        val dto = LessonDto(lesson.id, lesson.absences.toList(), lesson.comments.toList(), editLessonDto.lessonContent, lesson.name, lesson.date)
+        val dto = LessonDto(lesson, editLessonDto.lessonContent)
         return ResponseEntity(dto, HttpStatus.OK)
     }
 
@@ -42,7 +42,7 @@ class LessonController(private val lessonService: LessonService) {
     fun getLesson(@PathVariable("lessonId") lessonId: Long): ResponseEntity<LessonDto> {
         val lesson = lessonService.findById(lessonId)
         val content = lessonService.getLessonContent(lesson)
-        val dto = LessonDto(lesson.id, lesson.absences.toList(), lesson.comments.toList(), content, lesson.name, lesson.date)
+        val dto = LessonDto(lesson, content)
         return ResponseEntity(dto, HttpStatus.OK)
     }
 

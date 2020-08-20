@@ -1,4 +1,5 @@
 import {Absence} from './Absence';
+import {Comment} from './Comment';
 
 export class Lesson {
   constructor(public id: number,
@@ -6,6 +7,7 @@ export class Lesson {
               public comments: Array<Comment>,
               public lessonContent: string,
               public name: string,
-              public date: Date) {
+              public date: Date,
+              public courseId: number) {
   }
 }

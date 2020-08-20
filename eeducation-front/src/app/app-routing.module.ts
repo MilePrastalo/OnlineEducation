@@ -17,6 +17,7 @@ import {CreateLessonComponent} from './create-lesson/create-lesson.component';
 import {LessonComponent} from './lesson/lesson.component';
 import {AddGradeComponent} from './add-grade/add-grade.component';
 import {StudentHomeComponent} from './student-home/student-home.component';
+import {EditLessonComponent} from './edit-lesson/edit-lesson.component';
 
 
 const routes: Routes = [
@@ -34,7 +35,8 @@ const routes: Routes = [
   {path: 'create-lesson/:courseId', component: CreateLessonComponent, canActivate: [LoggedInGuard]},
   {path: 'lesson/:id', component: LessonComponent, canActivate: [LoggedInGuard]},
   {path: 'add-grade/:courseId', component: AddGradeComponent, canActivate: [LoggedInGuard]},
-  {path: 'student-home', component: StudentHomeComponent, canActivate: [LoggedInGuard]}
+  {path: 'student-home', component: StudentHomeComponent, canActivate: [LoggedInGuard]},
+  {path: 'edit-lesson/:id', component: EditLessonComponent, canActivate: [LoggedInGuard]}
 ];
 
 @NgModule({

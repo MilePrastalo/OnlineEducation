@@ -33,6 +33,10 @@ import { CourseGradesComponent } from './course-grades/course-grades.component';
 import { AddGradeComponent } from './add-grade/add-grade.component';
 import { StudentHomeComponent } from './student-home/student-home.component';
 import { StudentGradesComponent } from './student-grades/student-grades.component';
+import { ImageDialogComponent } from './image-dialog/image-dialog.component';
+import { CommentComponent } from './comment/comment.component';
+import { ReplyDialogComponent } from './reply-dialog/reply-dialog.component';
+import { EditLessonComponent } from './edit-lesson/edit-lesson.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +63,11 @@ import { StudentGradesComponent } from './student-grades/student-grades.componen
     CourseGradesComponent,
     AddGradeComponent,
     StudentHomeComponent,
-    StudentGradesComponent
+    StudentGradesComponent,
+    ImageDialogComponent,
+    CommentComponent,
+    ReplyDialogComponent,
+    EditLessonComponent
   ],
   imports: [
     BrowserModule,

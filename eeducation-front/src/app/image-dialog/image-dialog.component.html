@@ -1,0 +1,8 @@
+<h2 mat-dialog-title>{{data.name}} path</h2>
+<mat-dialog-content>Enter {{data.name}} path</mat-dialog-content>
+<input matInput [(ngModel)]="data.image" type="text">
+<mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="data.image">Add</button>
+  <button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>
+

@@ -3,6 +3,6 @@ export class EditLesson {
               public courseId: number,
               public lessonContent: string,
               public name: string,
-              public date: Date) {
+              public date: string) {
   }
 }

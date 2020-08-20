@@ -6,6 +6,8 @@ INSERT INTO teacher_schools (`teachers_id`, `schools_id`) VALUES ('100', '101');
 
 INSERT INTO course (`id`, `begins_date`, `descr`, `ends_date`, `free_to_join`, `is_archivated`, `name`, `school_id`) VALUES ('102', '2020-08-14 00:00:00.000000', 'course description', '2020-08-16 00:00:00.000000', 1, 0, 'Course unique name', '101');
 INSERT INTO teacher_courses (`teachers_id`, `courses_id`) VALUES ('100', '102');
+INSERT INTO lesson (`id`, `name`, `course_id`) VALUES ('100', 'Lesson1', '102');
+INSERT INTO course_lessons (`course_id`, `lessons_id`) VALUES ('102', '100');
 
 INSERT INTO privilege (id, name) VALUES ('101', 'CREATE_COURSE');
 INSERT INTO privilege (id, name) VALUES ('102', 'READ_COURSE');

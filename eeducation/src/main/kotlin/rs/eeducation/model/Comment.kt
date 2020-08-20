@@ -12,7 +12,9 @@ class Comment(@Id
               @OneToMany
               var replies: Set<Comment>,
               @Column
+              var text: String,
+              @Column
               var datePosted: Date,
               @Column
-              var isReply: Boolean) {
+              var reply: Boolean) {
 }
