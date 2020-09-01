@@ -9,6 +9,7 @@ import {Course} from '../model/Course';
 export class CourseStudentsComponent implements OnInit {
 
   @Input() course: Course;
+  displayedColumns: string[] = ['name', 'email'];
 
   constructor() {
   }

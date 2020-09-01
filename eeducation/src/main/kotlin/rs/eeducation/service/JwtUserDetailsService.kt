@@ -24,12 +24,8 @@ class JwtUserDetailsService(var userRepository: UserRepository) : UserDetailsSer
 
     private fun getPrivileges(roles: Collection<Role>): List<String> {
         val privileges: MutableList<String> = ArrayList()
-        val collection: MutableList<Privilege> = ArrayList<Privilege>()
         for (role in roles) {
-            collection.addAll(role.privileges)
-        }
-        for (item in collection) {
-            privileges.add(item.name)
+            privileges.add(role.name)
         }
         return privileges
     }
@@ -41,5 +37,6 @@ class JwtUserDetailsService(var userRepository: UserRepository) : UserDetailsSer
         }
         return authorities
     }
+
 
 }

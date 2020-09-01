@@ -18,7 +18,16 @@ export class NotLoggedInGuard implements CanActivate {
       const jwt: JwtHelperService = new JwtHelperService();
       const info = jwt.decodeToken(token);
       const date = new Date();
-      this.router.navigateByUrl('home');
+      const role = localStorage.getItem('role');
+      if (role === 'SCHOOL') {
+        this.router.navigateByUrl('/school-home');
+      } else if (role === 'STUDENT') {
+        this.router.navigateByUrl('/student-home');
+      } else if (role === 'TEACHER') {
+        this.router.navigateByUrl('/teacher-home');
+      } else {
+        return true;
+      }
       if (info.exp * 1000 < date.getTime()) {
         localStorage.setItem('token', '');
         return true;

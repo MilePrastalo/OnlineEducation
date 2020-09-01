@@ -1,10 +1,20 @@
 <div>
-  <div *ngFor="let grade of course.grades">
-    <span>{{grade.studentName}}</span>
-    <span>{{grade.grade}}</span>
-  </div>
+  <button class="margin-bottom-5 margin-top-5" mat-raised-button (click)="addGrade()">Add grade</button>
+  <table mat-table [dataSource]="grades" class="mat-elevation-z8 tableSize">
+    <!-- Position Column -->
+    <ng-container matColumnDef="studentName">
+      <th mat-header-cell *cdkHeaderCellDef> Student name </th>
+      <td mat-cell *cdkCellDef="let element"> {{element.studentName}} </td>
+    </ng-container>
 
-  <div>
-    <button (click)="addGrade()">Add grade</button>
-  </div>
+    <!-- Name Column -->
+    <ng-container matColumnDef="grades">
+      <th mat-header-cell *cdkHeaderCellDef> Grades </th>
+      <td mat-cell *cdkCellDef="let element"> {{element.grades}} </td>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
 </div>

@@ -1,0 +1,130 @@
+<div>
+  <app-navbar></app-navbar>
+  <mat-tab-group class="centerTabs">
+    <mat-tab label="Courses">
+      <mat-card (click)="goCourse(course.id)" class="card" *ngFor="let course of school.courses">
+        <h2>{{course.name}}</h2>
+        Begins: {{course.begins|date}} Ends: {{course.ends|date}}
+      </mat-card>
+    </mat-tab>
+    <mat-tab label="Teachers">
+      <table mat-table [dataSource]="school.teachers" class="mat-elevation-z8 tableSize">
+
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef> Email</th>
+          <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name</th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsTeachers"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsTeachers;"></tr>
+      </table>
+    </mat-tab>
+    <mat-tab label="Teacher join request">
+      <table mat-table [dataSource]="teacherRequests" class="mat-elevation-z8 tableSize">
+
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef> Email</th>
+          <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name</th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="accept">
+          <th mat-header-cell *matHeaderCellDef> Accept</th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-raised-button (click)="acceptTeacherRequest(element.id)">Accept</button>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="reject">
+          <th mat-header-cell *matHeaderCellDef> Reject</th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-raised-button (click)="rejectTeacherRequest(element.id)">Reject</button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsTeachersRequests"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsTeachersRequests;"></tr>
+      </table>
+    </mat-tab>
+    <mat-tab label="Student join request">
+      <table mat-table [dataSource]="studentRequests" class="mat-elevation-z8 tableSize">
+
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef> Email </th>
+          <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="accept">
+          <th mat-header-cell *matHeaderCellDef> Accept </th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-raised-button (click)="acceptStudentRequest(element.id)">Accept</button>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="reject">
+          <th mat-header-cell *matHeaderCellDef> Reject </th>
+          <td mat-cell *matCellDef="let element">
+            <button (click)="rejectStudentRequest(element.id)">Reject</button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsTeachersRequests"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsTeachersRequests;"></tr>
+      </table>
+    </mat-tab>
+    <mat-tab label="Teacher invite">
+      <div>
+        <h2>Invite student</h2>
+        <form class="form" [formGroup]="inviteStudentForm" (ngSubmit)="inviteStudentForm.valid && onInviteStudent()">
+          <mat-form-field class="field-full-width">
+            <input id="studentInviteEmail"
+                   matInput
+                   formControlName="studentInviteEmail"
+                   placeholder="studentInviteEmail"/>
+            <mat-error>studentInviteEmail can not be blank.</mat-error>
+          </mat-form-field>
+          <button id="inviteStudentBt" mat-stroked-button color="primary" class="btn-block">Invite student</button>
+        </form>
+      </div>
+    </mat-tab>
+    <mat-tab label="Student invite">
+      <div>
+        <h2>Invite student</h2>
+        <form class="form" [formGroup]="inviteTeacherForm" (ngSubmit)="inviteTeacherForm.valid && onInviteTeacher()">
+          <mat-form-field class="field-full-width">
+            <input id="teacherInviteEmail"
+                   matInput
+                   formControlName="teacherInviteEmail"
+                   placeholder="teacherInviteEmail"/>
+            <mat-error>studentInviteEmail can not be blank.</mat-error>
+          </mat-form-field>
+          <button id="inviteTeacherBt" mat-stroked-button color="primary" class="btn-block">Invite teacher</button>
+        </form>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+
+</div>
+
+
+
+
+
+

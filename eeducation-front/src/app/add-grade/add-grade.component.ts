@@ -63,4 +63,8 @@ export class AddGradeComponent implements OnInit {
     );
   }
 
+  back() {
+    this.router.navigateByUrl('course/' + this.course.id);
+  }
+
 }

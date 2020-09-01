@@ -1,0 +1,14 @@
+<h2 mat-dialog-title>Add question</h2>
+<mat-dialog-content>Enter question text</mat-dialog-content>
+<input matInput [(ngModel)]="data.text" type="text">
+<mat-label>Question type</mat-label>
+<select matInput [(ngModel)]="data.type">
+  <option value="MULTIPLE_CHOICE">Single answer</option>
+  <option value="CHECKBOXES">Multiple answers</option>
+  <option value="SHORT_ANSWER">Short answer</option>
+  <option value="PARAGRAPH">Long answer</option>
+</select>
+<mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="getQuestion()">Add</button>
+  <button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

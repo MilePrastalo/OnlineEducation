@@ -1,9 +1,22 @@
-.page{
-  height: 100vh;
+.page {
+  height: 30vh;
 }
-.aquae{
-  background: aqua;
+
+.example-spacer {
+  flex: 1 1 auto;
 }
-.antiquewhite{
-  background: antiquewhite;
+.small-card{
+  width: 20%;
+  height: 300px;
+  margin: 20px;
+  float: left;
+}
+.full-width{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: grey;
+  color: white;
+  text-align: center;
 }

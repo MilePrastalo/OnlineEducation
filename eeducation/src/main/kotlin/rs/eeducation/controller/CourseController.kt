@@ -25,9 +25,9 @@ class CourseController(private val courseService: CourseService) {
         return ResponseEntity(dto, HttpStatus.OK)
     }
 
-    @GetMapping(value = ["teacher/{teacherId}"])
-    fun getTeacherCourses(@PathVariable("teacherId") teacherId: Long): ResponseEntity<List<CourseBasicDTO>> {
-        val courses = courseService.getTeacherCourses(teacherId)
+    @GetMapping(value = ["teacher"])
+    fun getTeacherCourses(): ResponseEntity<List<CourseBasicDTO>> {
+        val courses = courseService.getTeacherCourses()
         val dtos = courses.map { course -> CourseBasicDTO(course) }
         return ResponseEntity(dtos, HttpStatus.OK)
     }

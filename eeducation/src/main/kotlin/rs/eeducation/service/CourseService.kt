@@ -17,8 +17,8 @@ class CourseService(private val courseRepository: CourseRepository,
                     private val schoolService: SchoolService,
                     private val userService: UserService) {
 
-    fun getTeacherCourses(teacherId: Long): List<Course> {
-        val teacher = teacherService.findById(teacherId)
+    fun getTeacherCourses(): List<Course> {
+        val teacher = userService.getLoggedInUser() as Teacher
         return courseRepository.findByTeachersContaining(teacher)
     }
 

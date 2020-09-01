@@ -1,0 +1,8 @@
+<h2 mat-dialog-title>Add question</h2>
+<mat-dialog-content>Enter answer</mat-dialog-content>
+<input matInput [(ngModel)]="data.text" type="text">
+<mat-checkbox *ngIf="canBeCorrect(data.question)" class="example-margin" [(ngModel)]="data.checked">Correct</mat-checkbox>
+<mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="getAnswer()">Add</button>
+  <button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

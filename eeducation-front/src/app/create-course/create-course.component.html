@@ -1,73 +1,73 @@
-<div class="form-wrapper">
-  <mat-card class="box" id="login-box">
-    <mat-card-header>
-      <mat-icon class="account-icon">account_circle</mat-icon>
-    </mat-card-header>
+<div>
+  <app-navbar></app-navbar>
+  <div class="form-wrapper">
+    <mat-card class="box" id="login-box">
+      <form class="form" [formGroup]="courseForm" (ngSubmit)="courseForm.valid && onCourseCreate()">
+        <mat-card-content>
+          <mat-form-field class="field-full-width">
+            <input id="name"
+                   matInput
+                   formControlName="name"
+                   placeholder="name"/>
+            <mat-error>name can not be blank.</mat-error>
+          </mat-form-field>
+          <mat-form-field class="field-full-width">
+            <input id="description"
+                   matInput
+                   formControlName="description"
+                   placeholder="description"/>
+            <mat-error>description can not be blank.</mat-error>
+          </mat-form-field>
 
-    <form class="form" [formGroup]="courseForm" (ngSubmit)="courseForm.valid && onCourseCreate()">
-      <mat-card-content>
-        <mat-form-field class="field-full-width">
-          <input id="name"
-                 matInput
-                 formControlName="name"
-                 placeholder="name"/>
-          <mat-error>name can not be blank.</mat-error>
-        </mat-form-field>
-        <mat-form-field class="field-full-width">
-          <input id="description"
-                 matInput
-                 formControlName="description"
-                 placeholder="description"/>
-          <mat-error>description can not be blank.</mat-error>
-        </mat-form-field>
+          <mat-form-field class="field-full-width">
+            <input id="begins"
+                   matInput
+                   formControlName="begins"
+                   placeholder="begins"
+                   [matDatepicker]="pickerBegins"
+            />
+            <mat-datepicker-toggle matSuffix [for]="pickerBegins"></mat-datepicker-toggle>
+            <mat-datepicker #pickerBegins></mat-datepicker>
+            <mat-error>begins can not be blank.</mat-error>
+          </mat-form-field>
+          <mat-form-field class="field-full-width">
+            <input id="ends"
+                   matInput
+                   formControlName="ends"
+                   placeholder="ends"
+                   [matDatepicker]="pickerEnds"
+            />
+            <mat-datepicker-toggle matSuffix [for]="pickerEnds"></mat-datepicker-toggle>
+            <mat-datepicker #pickerEnds></mat-datepicker>
+            <mat-error>ends can not be blank.</mat-error>
+          </mat-form-field>
+          <mat-form-field class="field-full-width">
+            <mat-select id="school"
+                        formControlName="school"
+                        placeholder="school">
+              <mat-option value="-1">
+                None
+              </mat-option>
+              <mat-option *ngFor="let school of schools" [value]=school.id>
+                {{school.name}}
+              </mat-option>
+            </mat-select>
 
-        <mat-form-field class="field-full-width">
-          <input id="begins"
-                 matInput
-                 formControlName="begins"
-                 placeholder="begins"
-                 [matDatepicker]="pickerBegins"
-          />
-          <mat-datepicker-toggle matSuffix [for]="pickerBegins"></mat-datepicker-toggle>
-          <mat-datepicker #pickerBegins></mat-datepicker>
-          <mat-error>begins can not be blank.</mat-error>
-        </mat-form-field>
-        <mat-form-field class="field-full-width">
-          <input id="ends"
-                 matInput
-                 formControlName="ends"
-                 placeholder="ends"
-                 [matDatepicker]="pickerEnds"
-          />
-          <mat-datepicker-toggle matSuffix [for]="pickerEnds"></mat-datepicker-toggle>
-          <mat-datepicker #pickerEnds></mat-datepicker>
-          <mat-error>ends can not be blank.</mat-error>
-        </mat-form-field>
-        <mat-form-field class="field-full-width">
-          <mat-select id="school"
-                      formControlName="school"
-                      placeholder="school">
-            <mat-option value="-1">
-              None
-            </mat-option>
-            <mat-option *ngFor="let school of schools" [value]=school.id>
-              {{school.name}}
-            </mat-option>
-          </mat-select>
+            <mat-error>school can not be blank.</mat-error>
+          </mat-form-field>
+          <mat-form-field class="field-full-width">
+            <input id="teachers"
+                   matInput
+                   formControlName="teachers"
+                   placeholder="teachers"
+            />
+            <mat-error>teachers can not be blank.</mat-error>
+          </mat-form-field>
+        </mat-card-content>
+        <button id="createBt" mat-stroked-button color="primary" class="btn-block">Create course</button>
+      </form>
+    </mat-card>
 
-          <mat-error>school can not be blank.</mat-error>
-        </mat-form-field>
-        <mat-form-field class="field-full-width">
-          <input id="teachers"
-                 matInput
-                 formControlName="teachers"
-                 placeholder="teachers"
-          />
-          <mat-error>teachers can not be blank.</mat-error>
-        </mat-form-field>
-      </mat-card-content>
-      <button id="createBt" mat-stroked-button color="primary" class="btn-block">Create course</button>
-    </form>
-  </mat-card>
-
+  </div>
 </div>
+

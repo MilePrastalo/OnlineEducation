@@ -1,4 +1,5 @@
 <div>
+  <app-navbar></app-navbar>
   <mat-card class="box" id="login-box">
 
     <form class="form" [formGroup]="absenceForm" (ngSubmit)="absenceForm.valid && onAbsenceCreate()">
@@ -35,6 +36,8 @@
 
       </mat-card-content>
       <button id="createBt" mat-stroked-button color="primary" class="btn-block">Add absence</button>
+      <button (click)="back()" type="button" mat-stroked-button  class="btn-block">Back</button>
+
     </form>
   </mat-card>
 </div>

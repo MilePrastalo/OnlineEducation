@@ -1,4 +1,5 @@
 <div>
+  <app-navbar></app-navbar>
   <mat-card class="box" id="login-box">
 
     <form class="form" [formGroup]="gradeForm" (ngSubmit)="gradeForm.valid && addGrade()">
@@ -28,6 +29,8 @@
 
       </mat-card-content>
       <button id="createBt" mat-stroked-button color="primary" class="btn-block">Add grade</button>
+      <button type="button" (click)="back()" mat-stroked-button class="btn-block">Back</button>
+
     </form>
   </mat-card>
 </div>

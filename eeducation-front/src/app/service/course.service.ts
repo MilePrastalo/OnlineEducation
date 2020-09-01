@@ -22,8 +22,8 @@ export class CourseService {
     return this.http.post<Course>(this.path, createCourse);
   }
 
-  getTeacherCourses(teacherId: number): Observable<Array<CourseBasic>> {
-    return this.http.get<Array<CourseBasic>>(this.path + '/teacher/' + teacherId);
+  getTeacherCourses(): Observable<Array<CourseBasic>> {
+    return this.http.get<Array<CourseBasic>>(this.path + '/teacher' );
   }
 
   getCourse(courseId: number): Observable<Course> {

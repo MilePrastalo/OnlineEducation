@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import rs.eeducation.dto.SchoolDetailsDto
 import rs.eeducation.dto.SchoolDto
 import rs.eeducation.dto.UserBasicDto
 import rs.eeducation.service.SchoolService
@@ -102,6 +103,20 @@ class SchoolController(private val schoolService: SchoolService) {
     fun getSchoolInvitations(): ResponseEntity<List<SchoolDto>> {
         val schools = schoolService.viewInvitations()
         val dto = schools.map { school -> SchoolDto(school) }
+        return ResponseEntity(dto, HttpStatus.OK)
+    }
+
+    @GetMapping(value = ["{schoolId}"])
+    fun getSchool(@PathVariable("schoolId") schoolId: Long): ResponseEntity<SchoolDetailsDto> {
+        val school = schoolService.findById(schoolId)
+        val dto = SchoolDetailsDto(school)
+        return ResponseEntity(dto, HttpStatus.OK)
+    }
+
+    @GetMapping(value = [""])
+    fun getSchoolSelf(): ResponseEntity<SchoolDetailsDto> {
+        val school = schoolService.getSchoolSelf()
+        val dto = SchoolDetailsDto(school)
         return ResponseEntity(dto, HttpStatus.OK)
     }
 }

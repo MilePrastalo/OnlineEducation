@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {UserBasic} from '../model/UserBasic';
 import {School} from '../model/School';
+import {SchoolDetails} from '../model/SchoolDetails';
 
 @Injectable({
   providedIn: 'root'
@@ -66,6 +67,12 @@ export class SchoolService {
 
   getSchoolInvitations() {
     return this.http.get<Array<School>>(this.path + '/schoolInvitations');
+  }
 
+  getSchool(schoolId: number): Observable<SchoolDetails> {
+    return this.http.get<SchoolDetails>(this.path + '/' + schoolId);
+  }
+  getSchoolSelf(): Observable<SchoolDetails> {
+    return this.http.get<SchoolDetails>(this.path);
   }
 }

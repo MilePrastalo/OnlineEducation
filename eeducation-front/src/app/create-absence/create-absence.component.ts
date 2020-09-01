@@ -66,4 +66,8 @@ export class CreateAbsenceComponent implements OnInit {
     );
   }
 
+  back() {
+    this.router.navigateByUrl('course/' + this.course.id);
+  }
+
 }

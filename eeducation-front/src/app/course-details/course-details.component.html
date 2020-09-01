@@ -1,24 +1,40 @@
 <div>
-  {{course.name}}
-  Begins {{course.begins | date}}
-  Ends {{course.ends | date}}
-
-  Description:
-  <p>
-    {{course.description}}
-  </p>
-
-  Teachers:
-  <span *ngFor="let teacher of course.teachers"> {{teacher}} </span>
-  School:
-  {{course.school}}
-
-  <button (click)="edit()">Edit course</button>
-  <button (click)="archive()">Archive course</button>
-
-  <app-course-absences [course]="course"></app-course-absences>
-  <app-course-lessons [course]="course"></app-course-lessons>
-  <app-course-students [course]="course"></app-course-students>
-  <app-course-tests [course]="course"></app-course-tests>
-  <app-course-grades [course]="course"></app-course-grades>
+  <app-navbar></app-navbar>
+  <mat-card class="cardMargin center">
+    <h2>{{course.name}}</h2>
+    Begins {{course.begins | date}}
+    Ends {{course.ends | date}}
+    <br>
+    Description:
+    <p>
+      {{course.description}}
+    </p>
+    <br>
+    Teachers:
+    <span *ngFor="let teacher of course.teachers"> {{teacher}} </span>
+    <br>
+    School:
+    {{course.school}}
+  </mat-card>
+  <mat-tab-group class="tabsCenter center">
+    <mat-tab label="Lessons">
+      <app-course-lessons [course]="course"></app-course-lessons>
+    </mat-tab>
+    <mat-tab label="Students">
+      <app-course-students [course]="course"></app-course-students>
+    </mat-tab>
+    <mat-tab label="Grades">
+      <app-course-grades [course]="course"></app-course-grades>
+    </mat-tab>
+    <mat-tab label="Tests">
+      <app-course-tests [course]="course"></app-course-tests>
+    </mat-tab>
+    <mat-tab label="Absences">
+      <app-course-absences [course]="course"></app-course-absences>
+    </mat-tab>
+  </mat-tab-group>
+  <div class="bottom">
+    <button mat-raised-button (click)="edit()">Edit course</button>
+    <button mat-raised-button (click)="archive()">Archive course</button>
+  </div>
 </div>

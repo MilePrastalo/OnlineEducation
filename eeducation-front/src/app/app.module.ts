@@ -37,6 +37,13 @@ import { ImageDialogComponent } from './image-dialog/image-dialog.component';
 import { CommentComponent } from './comment/comment.component';
 import { ReplyDialogComponent } from './reply-dialog/reply-dialog.component';
 import { EditLessonComponent } from './edit-lesson/edit-lesson.component';
+import { QuestionComponent } from './question/question.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import {CdkTableModule} from '@angular/cdk/table';
+import { SchoolHomeComponent } from './school-home/school-home.component';
+import { QuestionDialogComponent } from './question-dialog/question-dialog.component';
+import { AnswerDialogComponent } from './answer-dialog/answer-dialog.component';
 
 @NgModule({
   declarations: [
@@ -67,17 +74,24 @@ import { EditLessonComponent } from './edit-lesson/edit-lesson.component';
     ImageDialogComponent,
     CommentComponent,
     ReplyDialogComponent,
-    EditLessonComponent
+    EditLessonComponent,
+    QuestionComponent,
+    NavbarComponent,
+    UserProfileComponent,
+    SchoolHomeComponent,
+    QuestionDialogComponent,
+    AnswerDialogComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MaterialModule,
-    HttpClientModule,
-    BrowserAnimationsModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MaterialModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        CdkTableModule
+    ],
   providers: [
     AuthenticationService,
     PathService,

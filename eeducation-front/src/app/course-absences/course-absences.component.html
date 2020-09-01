@@ -1,9 +1,15 @@
 <div>
-  <div *ngFor="let absence of course.absences">
-    <span>{{absence.studentName}}</span>
-    <span>{{absence.lessonName}}</span>
-  </div>
-  <div>
-    <button (click)="addAbsence()">Add absence</button>
-  </div>
+  <button class="margin-top-5 margin-bottom-5" mat-raised-button (click)="addAbsence()">Add absence</button>
+  <table mat-table [dataSource]="course.absences" class="mat-elevation-z8 tableSize">
+    <ng-container matColumnDef="studentName">
+      <th mat-header-cell *cdkHeaderCellDef> Student name</th>
+      <td mat-cell *cdkCellDef="let element"> {{element.studentName}} </td>
+    </ng-container>
+    <ng-container matColumnDef="lessonName">
+      <th mat-header-cell *cdkHeaderCellDef> Lesson name</th>
+      <td mat-cell *cdkCellDef="let element"> {{element.lessonName}} </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
 </div>

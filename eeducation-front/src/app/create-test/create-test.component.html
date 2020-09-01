@@ -1,1 +1,48 @@
-<p>create-test works!</p>
+<div>
+  <app-navbar></app-navbar>
+  <div class="form-wrapper">
+    <mat-card class="box">
+      <form class="form" [formGroup]="testForm">
+        <mat-form-field class="field-full-width">
+          <input id="name"
+                 matInput
+                 formControlName="name"
+                 placeholder="name"/>
+          <mat-error>name can not be blank.</mat-error>
+        </mat-form-field>
+        <mat-form-field class="field-full-width">
+          <input id="date"
+                 matInput
+                 formControlName="date"
+                 placeholder="date"
+                 [matDatepicker]="datePicker"
+          />
+          <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+          <mat-datepicker #datePicker></mat-datepicker>
+          <mat-error>date can not be blank.</mat-error>
+        </mat-form-field>
+        <mat-form-field class="field-full-width">
+          <input id="duration"
+                 matInput
+                 type="number"
+                 formControlName="duration"
+                 placeholder="duration"/>
+          <mat-error>duration can not be blank.</mat-error>
+        </mat-form-field>
+      </form>
+    </mat-card>
+  </div>
+  <div>
+    Questions
+    <button (click)="addQuestion()">Add question</button>
+    <div *ngFor="let question of questions">
+      <h3>{{question.name}}</h3>
+      <h4>{{question.questionType}}</h4>
+      <div *ngIf="question.questionType=='MULTIPLE_CHOICE'|| question.questionType=='CHECKBOXES'">
+        <button (click)="addAnswer(question)">Add answer</button>
+      </div>
+
+      <div *ngFor="let answer of question.answer">{{answer.answerText}}</div>
+    </div>
+  </div>
+</div>

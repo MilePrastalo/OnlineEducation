@@ -1,77 +1,9 @@
 <div>
-  <div>
-    <button (click)="askToJoinSchoolTeacher()">Join school as teacher</button>
-    <button (click)="askToJoinSchoolStudent()">Join school as student</button>
-  </div>
-  <div>
-    <table>
-      <tr>
-        <th>Teacher name</th>
-        <th>Teacher email</th>
-        <th>Accept</th>
-        <th>Reject</th>
-      </tr>
-      <tr *ngFor="let teacherRequest of teacherRequests">
-        <td>{{teacherRequest.name}}</td>
-        <td>{{teacherRequest.email}}</td>
-        <td>
-          <button (click)="acceptTeacherRequest(teacherRequest.id)">Accept</button>
-        </td>
-        <td>
-          <button (click)="rejectTeacherRequest(teacherRequest.id)">Reject</button>
-        </td>
-
-      </tr>
-    </table>
-  </div>
-
-  <div>
-    <table>
-      <tr>
-        <th>Student name</th>
-        <th>Student email</th>
-        <th>Accept</th>
-        <th>Reject</th>
-      </tr>
-      <tr *ngFor="let studentRequest of studentRequests">
-        <td>{{studentRequest.name}}</td>
-        <td>{{studentRequest.email}}</td>
-        <td>
-          <button (click)="acceptStudentRequest(studentRequest.id)">Accept</button>
-        </td>
-        <td>
-          <button (click)="rejectStudentRequest(studentRequest.id)">Reject</button>
-        </td>
-      </tr>
-    </table>
-  </div>
-
-  <div>
-    <h2>Invite student</h2>
-    <form class="form" [formGroup]="inviteStudentForm" (ngSubmit)="inviteStudentForm.valid && onInviteStudent()">
-      <mat-form-field class="field-full-width">
-        <input id="studentInviteEmail"
-               matInput
-               formControlName="studentInviteEmail"
-               placeholder="studentInviteEmail"/>
-        <mat-error>studentInviteEmail can not be blank.</mat-error>
-      </mat-form-field>
-      <button id="inviteStudentBt" mat-stroked-button color="primary" class="btn-block">Invite student</button>
-    </form>
-  </div>
-
-  <div>
-    <h2>Invite student</h2>
-    <form class="form" [formGroup]="inviteTeacherForm" (ngSubmit)="inviteTeacherForm.valid && onInviteTeacher()">
-      <mat-form-field class="field-full-width">
-        <input id="teacherInviteEmail"
-               matInput
-               formControlName="teacherInviteEmail"
-               placeholder="teacherInviteEmail"/>
-        <mat-error>studentInviteEmail can not be blank.</mat-error>
-      </mat-form-field>
-      <button id="inviteTeacherBt" mat-stroked-button color="primary" class="btn-block">Invite teacher</button>
-    </form>
-  </div>
-
+  <app-navbar></app-navbar>
+  <mat-card class="card">
+    <h2>{{school.name}}</h2>
+    <h3>{{school.email}}</h3>
+    <button mat-raised-button *ngIf="role==='TEACHER'" (click)="askToJoinSchoolTeacher()">Join school as teacher</button>
+    <button mat-raised-button *ngIf="role==='STUDENT'"(click)="askToJoinSchoolStudent()">Join school as student</button>
+  </mat-card>
 </div>

@@ -146,4 +146,8 @@ class SchoolService(private val schoolRepository: SchoolRepository,
         }
         return ArrayList()
     }
+
+    fun getSchoolSelf(): School {
+        return userService.getLoggedInUser() as School
+    }
 }

@@ -1,11 +1,28 @@
 <div>
-  <div *ngFor="let test of tests">
-    <span>{{test.name}}</span>
-    <span>{{test.date | date}}</span>
-    <span>{{test.duration}}</span>
-    <button (click)="takeTest(test.id)">Take test</button>
-  </div>
-  <div>
-    <button (click)="goCreateTest()">Create test</button>
-  </div>
+  <button class="margin-top-5 margin-bottom-5" mat-raised-button (click)="goCreateTest()">Create test</button>
+
+  <table mat-table [dataSource]="tests" class="mat-elevation-z8 tableSize">
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *cdkHeaderCellDef> Test name</th>
+      <td mat-cell *cdkCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *cdkHeaderCellDef> Date</th>
+      <td mat-cell *cdkCellDef="let element"> {{element.date|date:'medium'}} </td>
+    </ng-container>
+    <ng-container matColumnDef="duration">
+      <th mat-header-cell *cdkHeaderCellDef> Duration in minutes</th>
+      <td mat-cell *cdkCellDef="let element"> {{element.duration}} </td>
+    </ng-container>
+    <ng-container matColumnDef="take">
+      <th mat-header-cell *cdkHeaderCellDef> Take test</th>
+      <td mat-cell *cdkCellDef="let element">
+        <button (click)="takeTest(element.id)" mat-raised-button *ngIf="testButtonAvaiable(element)">Take test</button>
+      </td>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
 </div>

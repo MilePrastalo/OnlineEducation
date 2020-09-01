@@ -19,6 +19,13 @@ export class LoginComponent implements OnInit {
               private snackBar: MatSnackBar, private router: Router) {
   }
 
+  get email() {
+    return this.loginForm.controls.email.value as string;
+  }
+
+  get password() {
+    return this.loginForm.controls.password.value as string;
+  }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -31,14 +38,6 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  get email() {
-    return this.loginForm.controls.email.value as string;
-  }
-
-  get password() {
-    return this.loginForm.controls.password.value as string;
-  }
-
   onLogInSubmit() {
     const loginData = new AuthenticationRequest(this.email, this.password);
     this.authenticationService.login(loginData).subscribe(
@@ -46,8 +45,20 @@ export class LoginComponent implements OnInit {
         if (response != null) {
           localStorage.setItem('token', response.token);
           this.snackBar.open('Logged In successfully.');
-          console.log(response.token)
-          this.router.navigateByUrl('home');
+          const jwt: JwtHelperService = new JwtHelperService();
+          const info = jwt.decodeToken(response.token);
+          console.log(info);
+          const role = info.role[0].authority;
+          localStorage.setItem('role', info.role[0].authority);
+          this.snackBar.open('Logged In successfully.');
+
+          if (role === 'SCHOOL') {
+            this.router.navigateByUrl('/school-home');
+          } else if (role === 'STUDENT') {
+            this.router.navigateByUrl('/student-home');
+          } else if (role === 'TEACHER') {
+            this.router.navigateByUrl('/teacher-home');
+          }
         }
       }),
       (error => {

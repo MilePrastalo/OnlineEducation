@@ -12,12 +12,14 @@ export class CourseTestsComponent implements OnInit {
 
   tests: Array<Test>;
   @Input() course: Course;
+  displayedColumns = ['name', 'date', 'duration', 'take'];
 
   constructor(private router: Router) {
   }
 
   ngOnInit(): void {
     this.tests = this.course.tests;
+    console.log(this.tests);
   }
 
   takeTest(id: number) {
@@ -26,6 +28,12 @@ export class CourseTestsComponent implements OnInit {
 
   goCreateTest() {
     this.router.navigateByUrl('create-test/' + this.course.id);
+  }
+
+  testButtonAvaiable(test: Test) {
+    const now = new Date();
+    const newDateObj = new Date(new Date(test.date).getTime() + test.duration * 60000);
+    return (now.getTime() > new Date(test.date).getTime()) && now.getTime() < newDateObj.getTime();
   }
 
 }

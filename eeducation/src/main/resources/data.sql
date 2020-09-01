@@ -15,3 +15,7 @@ INSERT INTO privilege (id, name) VALUES ('102', 'READ_COURSE');
 INSERT INTO role (id, name) VALUES ('104', 'STUDENT');
 INSERT INTO role (id, name) VALUES ('105', 'TEACHER');
 INSERT INTO role (id, name) VALUES ('106', 'SCHOOL');
+
+INSERT INTO user_roles (users_id,roles_id) values (100,105);
+INSERT INTO user_roles (users_id,roles_id) values (101,106);
+INSERT INTO user_roles (users_id,roles_id) values (102,104);

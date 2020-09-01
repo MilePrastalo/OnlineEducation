@@ -10,6 +10,7 @@ import {Router} from '@angular/router';
 export class CourseAbsencesComponent implements OnInit {
 
   @Input() course: Course;
+  displayedColumns = ['studentName', 'lessonName'];
 
   constructor(private router: Router) {
   }
