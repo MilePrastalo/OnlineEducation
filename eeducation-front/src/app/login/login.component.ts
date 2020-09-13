@@ -50,6 +50,7 @@ export class LoginComponent implements OnInit {
           console.log(info);
           const role = info.role[0].authority;
           localStorage.setItem('role', info.role[0].authority);
+          localStorage.setItem('id', String(response.user.id));
           this.snackBar.open('Logged In successfully.');
 
           if (role === 'SCHOOL') {

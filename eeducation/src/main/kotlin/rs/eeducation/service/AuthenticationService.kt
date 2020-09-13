@@ -34,6 +34,10 @@ class AuthenticationService(private var authenticationManager: AuthenticationMan
         return jwtTokenUtil.generateToken(userDetails)
     }
 
+    fun getUserByEmail(email:String):User{
+        return userService.findByEmail(email)
+    }
+
     fun register(registrationRequest: RegistrationRequest): String {
         val roles = HashSet<Role>()
         val bc = BCryptPasswordEncoder()

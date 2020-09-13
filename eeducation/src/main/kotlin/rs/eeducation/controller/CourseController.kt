@@ -48,9 +48,9 @@ class CourseController(private val courseService: CourseService) {
 
     //Student join course
     @GetMapping(value = ["join/{courseId}"])
-    fun joinCourse(@PathVariable("courseId") courseId: Long): ResponseEntity<CourseBasicDTO> {
+    fun joinCourse(@PathVariable("courseId") courseId: Long): ResponseEntity<CourseDTO> {
         val course = courseService.joinCourse(courseId)
-        return ResponseEntity(CourseBasicDTO(course), HttpStatus.OK)
+        return ResponseEntity(CourseDTO(course), HttpStatus.OK)
     }
 
     //View Students of class that teacher is teaching
@@ -61,4 +61,17 @@ class CourseController(private val courseService: CourseService) {
         return ResponseEntity(dto, HttpStatus.OK)
     }
 
+    @GetMapping(value = ["acceptStudent/{courseId}/{studentId}"])
+    fun acceptStudentRequest(@PathVariable("courseId") courseId: Long, @PathVariable("studentId") studentId: Long)
+            : ResponseEntity<CourseDTO> {
+        val course = courseService.acceptStudentRequest(courseId, studentId)
+        return ResponseEntity(CourseDTO(course), HttpStatus.OK)
+    }
+
+    @GetMapping(value = ["rejectStudent/{courseId}/{studentId}"])
+    fun rejectStudentRequest(@PathVariable("courseId") courseId: Long, @PathVariable("studentId") studentId: Long)
+            : ResponseEntity<CourseDTO> {
+        val course = courseService.rejectStudentRequest(courseId, studentId)
+        return ResponseEntity(CourseDTO(course), HttpStatus.OK)
+    }
 }

@@ -15,7 +15,8 @@ import javax.persistence.EntityNotFoundException
 class CourseService(private val courseRepository: CourseRepository,
                     private val teacherService: TeacherService,
                     private val schoolService: SchoolService,
-                    private val userService: UserService) {
+                    private val userService: UserService,
+                    private val studentService: StudentService) {
 
     fun getTeacherCourses(): List<Course> {
         val teacher = userService.getLoggedInUser() as Teacher
@@ -80,15 +81,38 @@ class CourseService(private val courseRepository: CourseRepository,
         val course = findById(courseId)
         if (course.freeToJoin) {
             (course.students as MutableSet).add(student)
+            (student.courses as MutableSet).add(course)
         } else {
             (course.studentsWaiting as MutableSet).add(student)
         }
+        studentService.save(student)
         return save(course)
     }
 
     fun findStudentsOfClass(courseId: Long): List<Student> {
         val course = findById(courseId)
         return course.students.toList()
+    }
+
+    fun findByName(name: String): List<Course> {
+        return courseRepository.findByNameContaining(name)
+    }
+
+    fun acceptStudentRequest(courseId: Long, studentId: Long): Course {
+        val course = findById(courseId)
+        val student = studentService.findById(studentId)
+        (course.studentsWaiting as MutableSet).remove(student)
+        (course.students as MutableSet).add(student)
+        (student.courses as MutableSet).add(course)
+        studentService.save(student)
+        return save(course)
+    }
+
+    fun rejectStudentRequest(courseId: Long, studentId: Long): Course {
+        val course = findById(courseId)
+        val student = studentService.findById(studentId)
+        (course.studentsWaiting as MutableSet).remove(student)
+        return save(course)
     }
 }
 

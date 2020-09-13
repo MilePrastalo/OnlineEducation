@@ -1,4 +1,4 @@
 package rs.eeducation.dto
 
-class AuthenticationResponse(val token: String) {
+class AuthenticationResponse(val token: String, val user: UserBasicDto) {
 }

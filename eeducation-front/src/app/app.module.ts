@@ -44,6 +44,9 @@ import {CdkTableModule} from '@angular/cdk/table';
 import { SchoolHomeComponent } from './school-home/school-home.component';
 import { QuestionDialogComponent } from './question-dialog/question-dialog.component';
 import { AnswerDialogComponent } from './answer-dialog/answer-dialog.component';
+import { SearchComponent } from './search/search.component';
+import { CourseCardComponent } from './course-card/course-card.component';
+import { SchoolCardComponent } from './school-card/school-card.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +83,10 @@ import { AnswerDialogComponent } from './answer-dialog/answer-dialog.component';
     UserProfileComponent,
     SchoolHomeComponent,
     QuestionDialogComponent,
-    AnswerDialogComponent
+    AnswerDialogComponent,
+    SearchComponent,
+    CourseCardComponent,
+    SchoolCardComponent
   ],
     imports: [
         BrowserModule,

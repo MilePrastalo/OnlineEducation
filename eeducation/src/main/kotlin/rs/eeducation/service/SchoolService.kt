@@ -150,4 +150,8 @@ class SchoolService(private val schoolRepository: SchoolRepository,
     fun getSchoolSelf(): School {
         return userService.getLoggedInUser() as School
     }
+
+    fun findSchoolsByName(name:String):List<School>{
+        return schoolRepository.findByNameContaining(name)
+    }
 }

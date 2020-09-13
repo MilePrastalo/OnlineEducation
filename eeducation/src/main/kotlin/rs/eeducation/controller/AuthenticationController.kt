@@ -5,10 +5,7 @@ import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.view.RedirectView
-import rs.eeducation.dto.AuthenticationRequest
-import rs.eeducation.dto.AuthenticationResponse
-import rs.eeducation.dto.RegistrationRequest
-import rs.eeducation.dto.RegistrationResponse
+import rs.eeducation.dto.*
 import rs.eeducation.service.AuthenticationService
 
 
@@ -18,19 +15,22 @@ import rs.eeducation.service.AuthenticationService
 class AuthenticationController(private val authenticationService: AuthenticationService) {
 
     @PostMapping(value = ["login"], consumes = [MediaType.APPLICATION_JSON_VALUE], produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun login(@RequestBody authenticationRequest: AuthenticationRequest):ResponseEntity<AuthenticationResponse>{
+    fun login(@RequestBody authenticationRequest: AuthenticationRequest): ResponseEntity<AuthenticationResponse> {
         val token = authenticationService.login(authenticationRequest)
-        val authenticationResponse = AuthenticationResponse(token)
-        return ResponseEntity(authenticationResponse,HttpStatus.OK)
+        val user = authenticationService.getUserByEmail(authenticationRequest.email)
+        val userDto = UserBasicDto(user.id, user.email, user.name)
+        val authenticationResponse = AuthenticationResponse(token,userDto)
+        return ResponseEntity(authenticationResponse, HttpStatus.OK)
     }
 
-    @PostMapping(value = ["register"],consumes = [MediaType.APPLICATION_JSON_VALUE], produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun register(@RequestBody registrationRequest: RegistrationRequest):ResponseEntity<RegistrationResponse>{
+    @PostMapping(value = ["register"], consumes = [MediaType.APPLICATION_JSON_VALUE], produces = [MediaType.APPLICATION_JSON_VALUE])
+    fun register(@RequestBody registrationRequest: RegistrationRequest): ResponseEntity<RegistrationResponse> {
         val response = authenticationService.register(registrationRequest)
         return ResponseEntity(RegistrationResponse(response), HttpStatus.OK)
     }
+
     @GetMapping(value = ["registrationConfirmation/{emailEncoded}"])
-    fun confirmAccount(@PathVariable("emailEncoded") emailEncoded:String):RedirectView {
+    fun confirmAccount(@PathVariable("emailEncoded") emailEncoded: String): RedirectView {
         authenticationService.confirm(emailEncoded)
         return RedirectView("http://localhost:4200")
     }

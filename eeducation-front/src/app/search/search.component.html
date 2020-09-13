@@ -1,0 +1,32 @@
+<div>
+  <mat-card class="box" id="login-box">
+    <form class="form" [formGroup]="searchForm" (ngSubmit)="searchForm.valid && onSearchSubmit()">
+      <mat-card-content>
+        <mat-form-field class="field-full-width">
+          <input id="name"
+                 matInput
+                 formControlName="name"
+                 placeholder="Name"/>
+          <mat-error>Name can not be blank.</mat-error>
+        </mat-form-field>
+        <mat-form-field class="field-full-width">
+          <mat-select id="searchType"
+                      matInput
+                      formControlName="searchType"
+                      placeholder="searchType">
+            <mat-option value="COURSE">COURSE</mat-option>
+            <mat-option value="SCHOOL">SCHOOL</mat-option>
+          </mat-select>
+          <mat-error>userType can not be blank.</mat-error>
+        </mat-form-field>
+      </mat-card-content>
+      <button id="registerBt" mat-stroked-button color="primary" class="btn-block">Search</button>
+    </form>
+  </mat-card>
+  <div *ngIf="coursesFound">
+    <app-course-card (click)="goCourse(course.id)" *ngFor="let course of coursesFound" [course]="course"></app-course-card>
+  </div>
+  <div *ngIf="schoolsFound">
+    <app-school-card (click)="goCourse(school.id)" *ngFor="let school of schoolsFound" [school]="school"></app-school-card>
+  </div>
+</div>

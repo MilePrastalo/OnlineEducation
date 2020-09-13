@@ -8,6 +8,7 @@ INSERT INTO course (`id`, `begins_date`, `descr`, `ends_date`, `free_to_join`, `
 INSERT INTO teacher_courses (`teachers_id`, `courses_id`) VALUES ('100', '102');
 INSERT INTO lesson (`id`, `name`, `course_id`) VALUES ('100', 'Lesson1', '102');
 INSERT INTO course_lessons (`course_id`, `lessons_id`) VALUES ('102', '100');
+INSERT INTO student_courses (`students_id`, `courses_id`) VALUES ('102', '102');
 
 INSERT INTO privilege (id, name) VALUES ('101', 'CREATE_COURSE');
 INSERT INTO privilege (id, name) VALUES ('102', 'READ_COURSE');

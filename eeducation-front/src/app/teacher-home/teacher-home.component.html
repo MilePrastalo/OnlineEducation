@@ -10,9 +10,10 @@
       </mat-card>
     </mat-tab>
     <mat-tab label="Schools">
-      <mat-card (click)="goSchool(school.id)" class="card" *ngFor="let school of schools">
-        <h2>{{school.name}}</h2>
-      </mat-card>
+      <app-school-card  (click)="goSchool(school.id)" *ngFor="let school of schools" [school]="school"></app-school-card>
+    </mat-tab>
+    <mat-tab label="Search">
+      <app-search></app-search>
     </mat-tab>
   </mat-tab-group>
 </div>

@@ -43,8 +43,8 @@ export class TeacherHomeComponent implements OnInit {
     this.router.navigateByUrl('course/' + id);
   }
 
-  goSchool(id:number){
-    this.router.navigateByUrl('school/'+id);
+  goSchool(id: number) {
+    this.router.navigateByUrl('school/' + id);
   }
 
 }

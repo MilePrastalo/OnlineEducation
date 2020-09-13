@@ -23,7 +23,7 @@ export class CourseService {
   }
 
   getTeacherCourses(): Observable<Array<CourseBasic>> {
-    return this.http.get<Array<CourseBasic>>(this.path + '/teacher' );
+    return this.http.get<Array<CourseBasic>>(this.path + '/teacher');
   }
 
   getCourse(courseId: number): Observable<Course> {
@@ -44,6 +44,13 @@ export class CourseService {
 
   viewStudentsOfClass(courseId: number): Observable<Array<Student>> {
     return this.http.get<Array<Student>>(this.path + '/students/' + courseId);
+  }
+
+  acceptStudentRequest(courseId: number, studentId: number): Observable<Course> {
+    return this.http.get<Course>(this.path + '/acceptStudent/' + courseId + '/' + studentId);
+  }
+  rejectStudentRequest(courseId: number, studentId: number): Observable<Course> {
+    return this.http.get<Course>(this.path + '/rejectStudent/' + courseId + '/' + studentId);
   }
 
 }

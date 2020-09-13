@@ -1,3 +1,18 @@
 <div>
-  <app-student-grades></app-student-grades>
+  <app-navbar></app-navbar>
+  <mat-tab-group class="center">
+    <mat-tab label="Courses">
+      <app-course-card (click)="goCourse(course.id)" *ngFor="let course of courses" [course]="course"></app-course-card>
+    </mat-tab>
+    <mat-tab label="Schools">
+      <app-school-card  (click)="goSchool(school.id)" *ngFor="let school of schools" [school]="school"></app-school-card>
+    </mat-tab>
+    <mat-tab label="Grades">
+      <app-student-grades></app-student-grades>
+    </mat-tab>
+    <mat-tab label="Search">
+      <app-search></app-search>
+    </mat-tab>
+  </mat-tab-group>
+
 </div>

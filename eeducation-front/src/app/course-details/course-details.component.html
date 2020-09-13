@@ -11,12 +11,15 @@
     </p>
     <br>
     Teachers:
-    <span *ngFor="let teacher of course.teachers"> {{teacher}} </span>
+    <span *ngFor="let teacher of course.teachers"> {{teacher.name}}, </span>
     <br>
     School:
-    {{course.school}}
+    {{course.school.name}}
   </mat-card>
-  <mat-tab-group class="tabsCenter center">
+  <div *ngIf="studentNotRequested()">
+    <button (click)="joinCourse()">Join course</button>
+  </div>
+  <mat-tab-group class="tabsCenter center" *ngIf="studentPartOfCourse() || teacherPartOfCourse()">
     <mat-tab label="Lessons">
       <app-course-lessons [course]="course"></app-course-lessons>
     </mat-tab>
@@ -32,8 +35,39 @@
     <mat-tab label="Absences">
       <app-course-absences [course]="course"></app-course-absences>
     </mat-tab>
+    <mat-tab label="Student join requests" *ngIf="teacherPartOfCourse()">
+      <div>
+        <table mat-table [dataSource]="course.studentsWaiting" class="mat-elevation-z8 tableSize">
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Name</th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+          </ng-container>
+
+          <!-- Weight Column -->
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef> Email</th>
+            <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="accept">
+            <th mat-header-cell *matHeaderCellDef> Accept</th>
+            <td mat-cell *matCellDef="let element"> <button (click)="acceptStudentRequest(element.id)">Accept</button> </td>
+          </ng-container>
+
+          <ng-container matColumnDef="reject">
+            <th mat-header-cell *matHeaderCellDef> Reject</th>
+            <td mat-cell *matCellDef="let element"> <button (click)="rejectStudentRequest(element.id)">Reject</button> </td>
+          </ng-container>
+
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+    </mat-tab>
   </mat-tab-group>
-  <div class="bottom">
+  <div class="bottom" *ngIf="teacherPartOfCourse()">
     <button mat-raised-button (click)="edit()">Edit course</button>
     <button mat-raised-button (click)="archive()">Archive course</button>
   </div>
