@@ -10,10 +10,9 @@ import rs.eeducation.dto.TestDTO
 import rs.eeducation.service.TestService
 
 @RestController
-
+@RequestMapping(value = ["api/test"], produces = [MediaType.APPLICATION_JSON_VALUE])
+@CrossOrigin
 class TestController(private val testService: TestService) {
-
-
 
     //Create Test
     @PostMapping(consumes = [MediaType.APPLICATION_JSON_VALUE])
