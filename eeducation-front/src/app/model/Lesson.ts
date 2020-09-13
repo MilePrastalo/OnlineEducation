@@ -8,6 +8,7 @@ export class Lesson {
               public lessonContent: string,
               public name: string,
               public date: Date,
-              public courseId: number) {
+              public courseId: number,
+              public lessonLink: string) {
   }
 }

@@ -1,11 +1,12 @@
 <div>
   <app-navbar></app-navbar>
-  <mat-card class="create-lesson-card preview">
-    <div id="preview" ></div>
+  <mat-card class="create-lesson-card preview" *ngIf="displayToolBox()">
+    <div id="preview"></div>
   </mat-card>
   <div class="bottom">
     <mat-card class="create-lesson-card">
       <form class="form" [formGroup]="lessonForm" (ngSubmit)="lessonForm.valid && onLessonSubmit()">
+
         <mat-form-field class="field-full-width">
           <input id="name"
                  matInput
@@ -24,7 +25,24 @@
           <mat-datepicker #datePicker></mat-datepicker>
           <mat-error>ends can not be blank.</mat-error>
         </mat-form-field>
-        <div id="pallet">
+        <mat-form-field class="field-full-width">
+          <mat-select id="lessonType"
+                      matInput
+                      formControlName="lessonType"
+                      placeholder="Lesson type">
+            <mat-option value="NEW">New Lesson</mat-option>
+            <mat-option value="LINK">Link lesson</mat-option>
+          </mat-select>
+          <mat-error>type can not be blank.</mat-error>
+        </mat-form-field>
+        <mat-form-field class="field-full-width" *ngIf="!displayToolBox()">
+          <input id="link"
+                 matInput
+                 formControlName="link"
+                 placeholder="link"/>
+          <mat-error>link can not be blank.</mat-error>
+        </mat-form-field>
+        <div id="pallet" *ngIf="displayToolBox()">
           <div class="palleteButtons">
             <button mat-raised-button type='button' (click)="setElement('h1')">h1</button>
             <button mat-raised-button type='button' (click)="setElement('h2')">h2</button>

@@ -26,11 +26,15 @@ class LessonService(private val lessonRepository: LessonRepository,
 
     fun createLesson(createLessonDto: CreateLessonDto): Lesson {
         val course = courseService.findById(createLessonDto.courseId)
+        var lessonContent: LessonContent = if (createLessonDto.lessonPath == null) {
+           val content =  LessonContent(null, createLessonDto.lessonContent)
+            lessonContentRepository.save(content);
 
+        } else {
+            lessonContentRepository.findById(createLessonDto.lessonPath!!).orElseThrow { EntityNotFoundException("Lesson path not found") }
+        }
         userService.teacherTeacherCourse(userService.getLoggedInUser()!!, course)
-        val lesson = save(Lesson(null, course, HashSet(), HashSet(), createLessonDto.name, createLessonDto.date))
-        val lessonContent = LessonContent(null, lesson.id!!, createLessonDto.lessonContent)
-        lessonContentRepository.save(lessonContent);
+        val lesson = save(Lesson(null, course, HashSet(), HashSet(), createLessonDto.name, createLessonDto.date, lessonContent.id!!))
         (course.lessons as MutableSet).add(lesson)
         courseService.save(course)
 
@@ -41,7 +45,7 @@ class LessonService(private val lessonRepository: LessonRepository,
         val course = courseService.findById(editLessonDto.courseId)
         val lesson = findById(editLessonDto.id)
         userService.teacherTeacherCourse(userService.getLoggedInUser()!!, course)
-        val lessonContent = lessonContentRepository.findByLessonId(lesson.id!!)
+        val lessonContent = lessonContentRepository.findById(lesson.lessonContentId).get()
         lessonContent.lessonContent = editLessonDto.lessonContent
         lessonContentRepository.save(lessonContent)
         lesson.name = editLessonDto.name
@@ -52,14 +56,14 @@ class LessonService(private val lessonRepository: LessonRepository,
     fun deleteLesson(lessonId: Long) {
         val lesson = findById(lessonId)
         val course = lesson.course
-        (course.lessons as MutableSet).remove(course.lessons.find { l->l.id == lesson.id })
+        (course.lessons as MutableSet).remove(course.lessons.find { l -> l.id == lesson.id })
         courseService.save(course)
         userService.teacherTeacherCourse(userService.getLoggedInUser()!!, course)
         lessonRepository.deleteById(lessonId)
     }
 
-    fun getLessonContent(lesson: Lesson): String {
-        return lessonContentRepository.findByLessonId(lesson.id!!).lessonContent
+    fun getLessonContent(lesson: Lesson): LessonContent {
+        return lessonContentRepository.findById(lesson.lessonContentId).get()
     }
 
 }

@@ -19,7 +19,7 @@ class CourseDTO(course: Course) {
     var studentsWaiting: List<UserBasicDto>
 
     init {
-        lessons = course.lessons.map { lesson -> LessonDto(lesson, "") }
+        lessons = course.lessons.map { lesson -> LessonDto(lesson, "","") }
         students = course.students.map { student -> StudentDto(student) }
         teachers = course.teachers.map { teacher -> UserBasicDto(teacher.id, teacher.email, teacher.name) }
         school = if (course.school != null) {

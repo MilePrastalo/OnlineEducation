@@ -37,6 +37,14 @@ export class CreateLessonComponent implements OnInit {
     return this.lessonForm.controls.date.value as string;
   }
 
+  get lessonType() {
+    return this.lessonForm.controls.lessonType.value as string;
+  }
+
+  get link() {
+    return this.lessonForm.controls.link.value as string;
+  }
+
   ngOnInit(): void {
     this.courseId = Number(this.route.snapshot.paramMap.get('courseId'));
     this.textArea = document.getElementById('textArea') as HTMLTextAreaElement;
@@ -45,10 +53,14 @@ export class CreateLessonComponent implements OnInit {
       name: ['', [
         Validators.required
       ]],
+      link: ['', []],
       date: ['', [
         Validators.required,
-      ]]
-    });
+      ]], lessonType: ['', [
+        Validators.required]]
+    })
+    ;
+    this.lessonForm.controls.lessonType.setValue('NEW');
   }
 
 
@@ -95,6 +107,13 @@ export class CreateLessonComponent implements OnInit {
   }
 
   changePreview() {
+    console.log('change preview');
+    if (!this.textArea) {
+      this.textArea = document.getElementById('textArea') as HTMLTextAreaElement;
+    }
+    if (!this.preview) {
+      this.preview = document.getElementById('preview') as HTMLElement;
+    }
     const tex = this.textArea.value;
     const splitted = tex.split('\n');
     this.preview.innerHTML = '';
@@ -108,11 +127,27 @@ export class CreateLessonComponent implements OnInit {
   }
 
   onLessonSubmit() {
-    const createLesson = new CreateLesson(this.courseId, this.textArea.value, this.name, this.date);
+    let lessonPath: string = null;
+    let createLesson: CreateLesson = null;
+    if (this.lessonType === 'LINK') {
+      lessonPath = this.link;
+      createLesson = new CreateLesson(this.courseId, '', this.name, this.date, lessonPath);
+    } else {
+      createLesson = new CreateLesson(this.courseId, this.textArea.value, this.name, this.date, lessonPath);
+    }
     this.lessonService.createLesson(createLesson).subscribe(
       response => {
+        console.log(response);
         this.router.navigateByUrl('course/' + this.courseId);
       }
     );
+  }
+
+  displayToolBox(): boolean {
+    const type = this.lessonType;
+    if (type === 'NEW') {
+      return true;
+    }
+    return false;
   }
 }

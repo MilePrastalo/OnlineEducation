@@ -18,7 +18,7 @@ class LessonController(private val lessonService: LessonService) {
     @PostMapping(consumes = [MediaType.APPLICATION_JSON_VALUE])
     fun createLesson(@RequestBody createLessonDto: CreateLessonDto): ResponseEntity<LessonDto> {
         val lesson = lessonService.createLesson(createLessonDto)
-        val dto = LessonDto(lesson, createLessonDto.lessonContent)
+        val dto = LessonDto(lesson, createLessonDto.lessonContent,lesson.lessonContentId)
         return ResponseEntity(dto, HttpStatus.OK)
     }
 
@@ -26,7 +26,7 @@ class LessonController(private val lessonService: LessonService) {
     @PutMapping(consumes = [MediaType.APPLICATION_JSON_VALUE])
     fun editLesson(@RequestBody editLessonDto: EditLessonDto): ResponseEntity<LessonDto> {
         val lesson = lessonService.editLesson(editLessonDto)
-        val dto = LessonDto(lesson, editLessonDto.lessonContent)
+        val dto = LessonDto(lesson, editLessonDto.lessonContent,editLessonDto.lessonContent)
         return ResponseEntity(dto, HttpStatus.OK)
     }
 
@@ -41,8 +41,8 @@ class LessonController(private val lessonService: LessonService) {
     @GetMapping(value = ["{lessonId}"])
     fun getLesson(@PathVariable("lessonId") lessonId: Long): ResponseEntity<LessonDto> {
         val lesson = lessonService.findById(lessonId)
-        val content = lessonService.getLessonContent(lesson)
-        val dto = LessonDto(lesson, content)
+        val lessonContent = lessonService.getLessonContent(lesson)
+        val dto = LessonDto(lesson, lessonContent.lessonContent, lessonContent.id!!)
         return ResponseEntity(dto, HttpStatus.OK)
     }
 

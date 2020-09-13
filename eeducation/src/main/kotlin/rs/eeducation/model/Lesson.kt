@@ -5,17 +5,19 @@ import javax.persistence.*
 
 @Entity
 class Lesson(@Id
-              @GeneratedValue
-              var id: Long?,
+             @GeneratedValue
+             var id: Long?,
              @ManyToOne
-              var course: Course,
+             var course: Course,
              @OneToMany
-              var absences: Set<Absence>,
+             var absences: Set<Absence>,
              @OneToMany
-              var comments: Set<Comment>,
+             var comments: Set<Comment>,
              @Column
-              var name: String,
+             var name: String,
              @Column
-              var date: Date
+             var date: Date,
+             @Column
+             var lessonContentId: String
 ) {
 }

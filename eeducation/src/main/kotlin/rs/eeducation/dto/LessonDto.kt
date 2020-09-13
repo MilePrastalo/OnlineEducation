@@ -14,6 +14,7 @@ class LessonDto {
     var name: String
     var date: Date
     var courseId: Long
+    var lessonLink: String
 
     constructor(id: Long?,
                 absences: List<Absence>,
@@ -21,7 +22,8 @@ class LessonDto {
                 lessonContent: String,
                 name: String,
                 date: Date,
-                courseId: Long) {
+                courseId: Long,
+                lessonLink: String) {
         this.id = id
         this.absences = absences
         this.comments = comments
@@ -29,9 +31,10 @@ class LessonDto {
         this.name = name
         this.date = date
         this.courseId = courseId
+        this.lessonLink = lessonLink
     }
 
-    constructor(lesson: Lesson, content: String) {
+    constructor(lesson: Lesson, content: String, link: String) {
         this.id = lesson.id
         this.lessonContent = content
         this.absences = ArrayList()
@@ -39,5 +42,6 @@ class LessonDto {
         this.name = lesson.name
         this.date = lesson.date
         this.courseId = lesson.course.id!!
+        this.lessonLink = link
     }
 }
