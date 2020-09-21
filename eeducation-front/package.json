@@ -11,6 +11,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular-material-components/datetime-picker": "~2.0.4",
     "@angular/animations": "~9.0.6",
     "@angular/cdk": "^9.2.4",
     "@angular/common": "~9.0.6",
@@ -22,10 +23,12 @@
     "@angular/platform-browser-dynamic": "~9.0.6",
     "@angular/router": "~9.0.6",
     "@auth0/angular-jwt": "^3.0.1",
+    "angular-jwt": "^0.1.11",
+    "moment": "^2.24.0",
+    "ng-pick-datetime": "~7.0.0",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
-    "zone.js": "~0.10.2",
-    "angular-jwt": "^0.1.11"
+    "zone.js": "~0.10.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.900.6",

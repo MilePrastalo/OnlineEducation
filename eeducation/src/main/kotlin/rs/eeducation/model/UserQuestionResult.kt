@@ -1,9 +1,6 @@
 package rs.eeducation.model
 
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
-import javax.persistence.ManyToOne
+import javax.persistence.*
 
 @Entity
 class UserQuestionResult(@Id
@@ -11,6 +8,6 @@ class UserQuestionResult(@Id
                          var id: Long?,
                          @ManyToOne
                          var question: Question,
-                         @ManyToOne
-                         var userAnswer: UserAnswer) {
+                         @OneToMany
+                         var userAnswer: Set<UserAnswer>) {
 }

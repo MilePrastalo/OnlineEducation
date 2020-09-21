@@ -3,11 +3,9 @@ package rs.eeducation.service
 import org.springframework.stereotype.Service
 import rs.eeducation.coverters.QuestionConverter
 import rs.eeducation.dto.CreateTestDto
-import rs.eeducation.model.Question
-import rs.eeducation.model.Test
-import rs.eeducation.repository.AnswerRepository
-import rs.eeducation.repository.QuestionRepository
-import rs.eeducation.repository.TestRepository
+import rs.eeducation.dto.TestResultDto
+import rs.eeducation.model.*
+import rs.eeducation.repository.*
 import javax.persistence.EntityNotFoundException
 
 @Service
@@ -15,7 +13,10 @@ class TestService(private val testRepository: TestRepository,
                   private val userService: UserService,
                   private val courseService: CourseService,
                   private val questionRepository: QuestionRepository,
-                  private val answerRepository: AnswerRepository) {
+                  private val answerRepository: AnswerRepository,
+                  private val userQuestionResultRepository: UserQuestionResultRepository,
+                  private val userAnswerRepository: UserAnswerRepository,
+                  private val testResultsRepository: TestResultsRepository) {
 
     fun delete(testId: Long) {
         val test = findOneById(testId)
@@ -42,10 +43,32 @@ class TestService(private val testRepository: TestRepository,
             question.answer = answers
             savedQuestions.add(questionRepository.save(question))
         }
-        val test = Test(null, createTestDto.name, createTestDto.date, createTestDto.duration, createTestDto.testType, savedQuestions, course)
+        var test = Test(null, createTestDto.name, createTestDto.date, createTestDto.duration, createTestDto.testType, savedQuestions, course)
+        test = save(test)
         (course.tests as MutableSet).add(test)
         courseService.save(course)
-        return save(test)
+        return test
+    }
+
+    fun studentSubmitsTest(testResultDto: TestResultDto): TestResults {
+        val student = userService.getLoggedInUser() as Student
+        val test = findOneById(testResultDto.testId)
+        val userQuestionResults = HashSet<UserQuestionResult>()
+        for (question in testResultDto.userQuestionResults) {
+            val answers = HashSet<UserAnswer>()
+            for (answer in question.answers) {
+                val userAnswer = if (answer.id != null) {
+                    UserAnswer(null, answerRepository.findById(answer.id!!).get(), answer.answerText)
+                } else {
+                    UserAnswer(null, null, answer.answerText)
+                }
+                answers.add(userAnswerRepository.save(userAnswer))
+            }
+            val userQuestionResult = UserQuestionResult(null, questionRepository.findById(question.questionId).get(), answers)
+            userQuestionResults.add(userQuestionResultRepository.save(userQuestionResult))
+        }
+        val testResults = TestResults(null, student, test, userQuestionResults)
+        return testResultsRepository.save(testResults)
     }
 
 }

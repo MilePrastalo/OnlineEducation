@@ -1,1 +1,39 @@
-<p>test works!</p>
+<app-navbar></app-navbar>
+<div>
+  <h1 class="center">{{test.name}}</h1>
+  <h2 class="center">{{timer}}</h2>
+  <mat-list>
+    <mat-list-item *ngFor="let question of test.questions">
+      <div>
+        <h3 class="questionName">{{question.name}}</h3>
+      </div>
+      <div *ngIf="question.questionType=='MULTIPLE_CHOICE'">
+        <mat-radio-group>
+          <ul>
+            <li *ngFor="let answer of question.answer">
+              <mat-radio-button (change)="questionAnsweredRadio(question.id,answer.answerText,answer.id,$event)"
+                                value="{{answer.id}}">{{answer.answerText}}</mat-radio-button>
+            </li>
+          </ul>
+        </mat-radio-group>
+      </div>
+      <div *ngIf="question.questionType=='CHECKBOXES'">
+        <section>
+          <ul>
+            <li *ngFor="let answer of question.answer">
+              <mat-checkbox (change)="questionAnsweredChecked(question.id,answer.answerText,answer.id,$event)"
+                            value="{{answer.id}}">{{answer.answerText}}</mat-checkbox>
+            </li>
+          </ul>
+        </section>
+      </div>
+      <div *ngIf="question.questionType=='SHORT_ANSWER'">
+        <input [id]="question.id" (keyup)="questionTextAnswer(question.id,$event)" type="text">
+      </div>
+      <div *ngIf="question.questionType=='PARAGRAPH'">
+        <textarea [id]="question.id" (keyup)="questionTextAnswer(question.id,$event)"></textarea>
+      </div>
+    </mat-list-item>
+  </mat-list>
+  <button mat-raised-button (click)="finish()">Finish</button>
+</div>

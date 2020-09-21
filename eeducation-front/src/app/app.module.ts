@@ -47,6 +47,8 @@ import { AnswerDialogComponent } from './answer-dialog/answer-dialog.component';
 import { SearchComponent } from './search/search.component';
 import { CourseCardComponent } from './course-card/course-card.component';
 import { SchoolCardComponent } from './school-card/school-card.component';
+import { TestGradingComponent } from './test-grading/test-grading.component';
+import {OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
 
 @NgModule({
   declarations: [
@@ -86,18 +88,22 @@ import { SchoolCardComponent } from './school-card/school-card.component';
     AnswerDialogComponent,
     SearchComponent,
     CourseCardComponent,
-    SchoolCardComponent
+    SchoolCardComponent,
+    TestGradingComponent,
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MaterialModule,
-        HttpClientModule,
-        BrowserAnimationsModule,
-        CdkTableModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MaterialModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    CdkTableModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
+
+  ],
   providers: [
     AuthenticationService,
     PathService,

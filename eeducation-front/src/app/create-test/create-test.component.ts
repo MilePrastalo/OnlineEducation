@@ -19,6 +19,7 @@ export class CreateTestComponent implements OnInit {
   testForm: FormGroup;
   courseId: number;
   questions = new Array<Question>();
+  testDate = '';
 
   constructor(private formBuilder: FormBuilder,
               private snackBar: MatSnackBar,
@@ -95,7 +96,6 @@ export class CreateTestComponent implements OnInit {
   }
 
   publishTest() {
-    console.log('Publish');
     const createTest = new CreateTest(this.name, this.date, this.duration, this.testType, this.questions, this.courseId);
     let displayAlert = false;
     if (this.testType === 'SELF_GRADING') {

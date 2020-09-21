@@ -7,7 +7,7 @@ class UserAnswer(@Id
                  @GeneratedValue
                  var id: Long?,
                  @ManyToOne
-                 var answer: Answer,
+                 var answer: Answer?,
                  @Column
                  var text: String) {
 }

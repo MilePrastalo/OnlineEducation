@@ -20,3 +20,28 @@ INSERT INTO role (id, name) VALUES ('106', 'SCHOOL');
 INSERT INTO user_roles (users_id,roles_id) values (100,105);
 INSERT INTO user_roles (users_id,roles_id) values (101,106);
 INSERT INTO user_roles (users_id,roles_id) values (102,104);
+
+INSERT INTO question (`id`, `name`, `question_type`) VALUES ('100', 'Java je', 'MULTIPLE_CHOICE');
+INSERT INTO question (`id`, `name`, `question_type`) VALUES ('101', 'Broj deljiv sa 2 je', 'CHECKBOXES');
+INSERT INTO question (`id`, `name`, `question_type`) VALUES ('102', '2+2=', 'SHORT_ANSWER');
+INSERT INTO question (`id`, `name`, `question_type`) VALUES ('103', 'Sta je smisao zivota', 'PARAGRAPH');
+
+INSERT INTO answer (`id`, `answer_text`, `correct`) VALUES ('100', 'Programski jezik', 1);
+INSERT INTO answer (`id`, `answer_text`, `correct`) VALUES ('101', 'Cokolada', 1);
+INSERT INTO answer (`id`, `answer_text`, `correct`) VALUES ('102', '1', 0);
+INSERT INTO answer (`id`, `answer_text`, `correct`) VALUES ('103', '2',1);
+INSERT INTO answer (`id`, `answer_text`, `correct`) VALUES ('104', '3', 0);
+
+INSERT INTO question_answer (`question_id`, `answer_id`) VALUES ('100', '100');
+INSERT INTO question_answer (`question_id`, `answer_id`) VALUES ('100', '101');
+INSERT INTO question_answer (`question_id`, `answer_id`) VALUES ('101', '102');
+INSERT INTO question_answer (`question_id`, `answer_id`) VALUES ('101', '103');
+INSERT INTO question_answer (`question_id`, `answer_id`) VALUES ('101', '104');
+
+INSERT INTO test (`id`, `date`, `duration`, `name`, `test_type`, `course_id`) VALUES ('100', '2020-09-22 17:50:00.000000', '30', 'Kolokvijum 1', 'SELF_GRADING', '102');
+INSERT INTO test_questions (`test_id`, `questions_id`) VALUES ('100', '100');
+INSERT INTO test_questions (`test_id`, `questions_id`) VALUES ('100', '101');
+INSERT INTO test_questions (`test_id`, `questions_id`) VALUES ('100', '102');
+INSERT INTO test_questions (`test_id`, `questions_id`) VALUES ('100', '103');
+
+INSERT INTO course_tests (`course_id`, `tests_id`) VALUES ('102', '100');

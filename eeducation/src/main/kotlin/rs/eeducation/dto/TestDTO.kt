@@ -3,13 +3,14 @@ package rs.eeducation.dto
 import rs.eeducation.coverters.QuestionConverter
 import rs.eeducation.model.Test
 import rs.eeducation.model.TestType
+import java.text.SimpleDateFormat
 import java.util.*
 
 class TestDTO {
 
     var id: Long?
     var name: String
-    var date: Date
+    var date: String
     var duration: Int
     var testType: TestType
     var questions: List<QuestionDto>
@@ -18,7 +19,8 @@ class TestDTO {
     constructor(test: Test) {
         id = test.id
         name = test.name
-        date = test.date
+        val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy hh:mm")
+        date = simpleDateFormat.format(test.date)
         duration = test.duration
         testType = test.testType
         questions = test.questions.map { question -> QuestionConverter.toDto(question) }.toList()
@@ -34,7 +36,8 @@ class TestDTO {
                 courseId: Long) {
         this.id = id
         this.name = name
-        this.date = date
+        val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy hh:mm")
+        this.date = simpleDateFormat.format(date)
         this.duration = duration
         this.testType = testType
         this.questions = questions

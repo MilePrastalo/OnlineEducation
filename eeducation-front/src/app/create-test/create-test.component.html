@@ -10,17 +10,17 @@
                  placeholder="name"/>
           <mat-error>name can not be blank.</mat-error>
         </mat-form-field>
-        <mat-form-field class="field-full-width">
-          <input id="date"
-                 matInput
+
+        <mat-form-field>
+          <input id="addDatePicker" [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" matInput
                  formControlName="date"
-                 placeholder="date"
-                 [matDatepicker]="datePicker"
-          />
-          <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
-          <mat-datepicker #datePicker></mat-datepicker>
-          <mat-error>date can not be blank.</mat-error>
+                 [(ngModel)]="testDate" placeholder="Choose a date">
+          <owl-date-time #dt1></owl-date-time>
         </mat-form-field>
+
+
+
+
         <mat-form-field class="field-full-width">
           <input id="duration"
                  matInput

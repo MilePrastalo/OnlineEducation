@@ -37,4 +37,5 @@ class AbsenceController(private val absenceService: AbsenceService) {
         return ResponseEntity(listDto, HttpStatus.OK)
 
     }
+
 }
