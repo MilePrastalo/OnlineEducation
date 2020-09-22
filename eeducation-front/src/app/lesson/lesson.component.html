@@ -17,11 +17,11 @@
                     placeholder="commentText"></textarea>
           <mat-error>name can not be blank.</mat-error>
         </mat-form-field>
-        <button>Add comment</button>
+        <button mat-raised-button>Add comment</button>
       </form>
     </mat-card>
   </div>
-  <button (click)="delete()">Delete lesson</button>
-  <button (click)="edit()">Edit lesson</button>
+  <button *ngIf="teacherPartOfCourse()" mat-raised-button color="warn" (click)="delete()">Delete lesson</button>
+  <button *ngIf="teacherPartOfCourse()" mat-raised-button (click)="edit()">Edit lesson</button>
 
 </div>

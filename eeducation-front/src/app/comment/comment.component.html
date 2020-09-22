@@ -1,4 +1,4 @@
-<div>
+<mat-card>
   <b>{{comment.user}}</b>
   {{comment.datePosted|date}}
   <div>{{comment.text}}</div>
@@ -8,6 +8,6 @@
   <div class="comment-margin">
     <app-comment *ngFor="let c of comment.replies" [lesson]="lesson" [comment]="c"></app-comment>
   </div>
-  <button (click)="reply()">Reply</button>
+  <button mat-raised-button (click)="reply()">Reply</button>
 
-</div>
+</mat-card>

@@ -55,5 +55,42 @@ export class SchoolDetailsComponent implements OnInit {
     );
   }
 
+  studentAskedToJoin(): boolean {
+    const id = Number(localStorage.getItem('id'));
+    for (const student of this.school.students) {
+      if (student.id === id) {
+        return true;
+      }
+    }
+    for (const student of this.school.studentRequests) {
+      if (student.id === id) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  teacherAskedToJoin(): boolean {
+    const id = Number(localStorage.getItem('id'));
+    for (const teacher of this.school.teachers) {
+      if (teacher.id === id) {
+        return true;
+      }
+    }
+    for (const teacher of this.school.teacherRequests) {
+      if (teacher.id === id) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  teacherCanJoin(): boolean {
+    return this.role === 'TEACHER' && (!this.teacherAskedToJoin());
+  }
+
+  studentCanJoin(): boolean {
+    return this.role === 'STUDENT' && (!this.studentAskedToJoin());
+  }
 
 }

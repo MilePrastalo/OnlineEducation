@@ -9,4 +9,6 @@ class SchoolDetailsDto(school: School) {
     var courses: List<CourseBasicDTO> = school.courses.map { course -> CourseBasicDTO(course) }
     var teachers: List<UserBasicDto> = school.teachers.map { teacher -> UserBasicDto(teacher.id, teacher.email, teacher.name) }
     var students: List<UserBasicDto> = school.students.map { student -> UserBasicDto(student.id, student.email, student.name) }
+    var teacherRequests:List<UserBasicDto> = school.teacherRequest.map { teacher -> UserBasicDto(teacher.id,teacher.email,teacher.name) }
+    var studentRequests:List<UserBasicDto> = school.studentRequest.map { student -> UserBasicDto(student.id,student.email,student.name) }
 }

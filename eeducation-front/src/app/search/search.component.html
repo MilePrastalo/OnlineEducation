@@ -27,6 +27,6 @@
     <app-course-card (click)="goCourse(course.id)" *ngFor="let course of coursesFound" [course]="course"></app-course-card>
   </div>
   <div *ngIf="schoolsFound">
-    <app-school-card (click)="goCourse(school.id)" *ngFor="let school of schoolsFound" [school]="school"></app-school-card>
+    <app-school-card (click)="goSchool(school.id)" *ngFor="let school of schoolsFound" [school]="school"></app-school-card>
   </div>
 </div>

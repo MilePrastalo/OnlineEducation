@@ -21,9 +21,6 @@ export class CourseGradesComponent implements OnInit {
     this.grades = this.createStudentGrades();
   }
 
-  addGrade() {
-    this.router.navigateByUrl('add-grade/' + this.course.id);
-  }
 
   createStudentGrades(): Array<StudentGrade> {
     const studentId = new Array<number>();

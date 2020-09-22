@@ -7,7 +7,9 @@ export class SchoolDetails {
               public name: string,
               public courses: Array<CourseBasic>,
               public teachers: Array<UserBasic>,
-              public students: Array<UserBasic>) {
-  }
+              public students: Array<UserBasic>,
+              public teacherRequests: Array<UserBasic>,
+              public studentRequests: Array<UserBasic>) {
 
+  }
 }

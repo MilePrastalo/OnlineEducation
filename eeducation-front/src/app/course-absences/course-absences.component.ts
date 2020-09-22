@@ -18,8 +18,5 @@ export class CourseAbsencesComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  addAbsence() {
-    this.router.navigateByUrl('create-absence/' + this.course.id);
-  }
 
 }

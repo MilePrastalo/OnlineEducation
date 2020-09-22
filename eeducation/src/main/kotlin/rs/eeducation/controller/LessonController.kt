@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*
 import rs.eeducation.dto.CreateLessonDto
 import rs.eeducation.dto.EditLessonDto
 import rs.eeducation.dto.LessonDto
+import rs.eeducation.model.LessonContent
 import rs.eeducation.service.LessonService
 
 @RestController
@@ -41,7 +42,11 @@ class LessonController(private val lessonService: LessonService) {
     @GetMapping(value = ["{lessonId}"])
     fun getLesson(@PathVariable("lessonId") lessonId: Long): ResponseEntity<LessonDto> {
         val lesson = lessonService.findById(lessonId)
-        val lessonContent = lessonService.getLessonContent(lesson)
+        val lessonContent = try{
+            lessonService.getLessonContent(lesson)
+        }catch (e:Exception){
+            LessonContent("","")
+        }
         val dto = LessonDto(lesson, lessonContent.lessonContent, lessonContent.id!!)
         return ResponseEntity(dto, HttpStatus.OK)
     }

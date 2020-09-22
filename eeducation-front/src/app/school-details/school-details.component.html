@@ -3,7 +3,7 @@
   <mat-card class="card">
     <h2>{{school.name}}</h2>
     <h3>{{school.email}}</h3>
-    <button mat-raised-button *ngIf="role==='TEACHER'" (click)="askToJoinSchoolTeacher()">Join school as teacher</button>
-    <button mat-raised-button *ngIf="role==='STUDENT'"(click)="askToJoinSchoolStudent()">Join school as student</button>
+    <button mat-raised-button *ngIf="teacherCanJoin()" (click)="askToJoinSchoolTeacher()">Join school as teacher</button>
+    <button mat-raised-button *ngIf="studentCanJoin()"(click)="askToJoinSchoolStudent()">Join school as student</button>
   </mat-card>
 </div>

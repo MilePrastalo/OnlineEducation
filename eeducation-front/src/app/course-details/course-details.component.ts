@@ -74,7 +74,6 @@ export class CourseDetailsComponent implements OnInit {
       return this.course.school.id === Number(this.id);
     }
     return false;
-
   }
 
   studentNotRequested() {
@@ -124,4 +123,21 @@ export class CourseDetailsComponent implements OnInit {
       }
     );
   }
+
+  addGrade() {
+    this.router.navigateByUrl('add-grade/' + this.course.id);
+  }
+
+  createLesson() {
+    this.router.navigateByUrl('create-lesson/' + this.course.id);
+  }
+
+  goCreateTest() {
+    this.router.navigateByUrl('create-test/' + this.course.id);
+  }
+
+  addAbsence() {
+    this.router.navigateByUrl('create-absence/' + this.course.id);
+  }
+
 }

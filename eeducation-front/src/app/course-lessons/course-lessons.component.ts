@@ -17,9 +17,6 @@ export class CourseLessonsComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  createLesson() {
-    this.router.navigateByUrl('create-lesson/' + this.course.id);
-  }
 
   viewLesson(id: number) {
     this.router.navigateByUrl('lesson/' + id);

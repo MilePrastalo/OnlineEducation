@@ -26,9 +26,6 @@ export class CourseTestsComponent implements OnInit {
     this.router.navigateByUrl('test/' + id);
   }
 
-  goCreateTest() {
-    this.router.navigateByUrl('create-test/' + this.course.id);
-  }
 
   testButtonAvaiable(test: Test) {
     const now = new Date();
