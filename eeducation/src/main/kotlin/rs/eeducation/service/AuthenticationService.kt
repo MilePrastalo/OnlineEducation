@@ -9,7 +9,7 @@ import rs.eeducation.dto.RegistrationRequest
 import rs.eeducation.exceptions.AccountNotActiveException
 import rs.eeducation.jwt.JwtTokenUtil
 import rs.eeducation.model.*
-import rs.eeducation.repository.RoleRepository
+import rs.eeducation.repository.AuthorityRepository
 import java.util.*
 import kotlin.collections.HashSet
 
@@ -17,7 +17,7 @@ import kotlin.collections.HashSet
 class AuthenticationService(private var authenticationManager: AuthenticationManager,
                             private var jwtUserDetailsService: JwtUserDetailsService,
                             private val jwtTokenUtil: JwtTokenUtil,
-                            private val roleRepository: RoleRepository,
+                            private val authorityRepository: AuthorityRepository,
                             private val schoolService: SchoolService,
                             private val teacherService: TeacherService,
                             private val studentService: StudentService,
@@ -39,26 +39,26 @@ class AuthenticationService(private var authenticationManager: AuthenticationMan
     }
 
     fun register(registrationRequest: RegistrationRequest): String {
-        val roles = HashSet<Role>()
+        val authorities = HashSet<Authority>()
         val bc = BCryptPasswordEncoder()
         return when (registrationRequest.userType) {
             UserType.SCHOOL -> {
-                roles.add(roleRepository.findByName("SCHOOL").get())
-                var school = School(null, registrationRequest.email, bc.encode(registrationRequest.password), registrationRequest.name, roles, false, HashSet(), HashSet(), HashSet(), HashSet(), HashSet())
+                authorities.add(authorityRepository.findByName("SCHOOL")!!)
+                var school = School(null, registrationRequest.email, bc.encode(registrationRequest.password), registrationRequest.name, authorities, false, HashSet(), HashSet(), HashSet(), HashSet(), HashSet())
                 school = schoolService.save(school)
                 emailService.sendRegistrationEmail(school)
                 "School has been successfully registered"
             }
             UserType.TEACHER -> {
-                roles.add(roleRepository.findByName("TEACHER").get())
-                var teacher = Teacher(null, registrationRequest.email, bc.encode(registrationRequest.password), registrationRequest.name, roles, false, HashSet(), HashSet(), HashSet())
+                authorities.add(authorityRepository.findByName("TEACHER")!!)
+                var teacher = Teacher(null, registrationRequest.email, bc.encode(registrationRequest.password), registrationRequest.name, authorities, false, HashSet(), HashSet(), HashSet())
                 teacher = teacherService.save(teacher)
                 emailService.sendRegistrationEmail(teacher)
                 "Teacher has been successfully registered"
             }
             UserType.STUDENT -> {
-                roles.add(roleRepository.findByName("STUDENT").get())
-                var student = Student(null, registrationRequest.email, registrationRequest.name, bc.encode(registrationRequest.password), roles, false, HashSet(), HashSet(), HashSet(), HashSet(), HashSet())
+                authorities.add(authorityRepository.findByName("STUDENT")!!)
+                var student = Student(null, registrationRequest.email, registrationRequest.name, bc.encode(registrationRequest.password), authorities, false, HashSet(), HashSet(), HashSet(), HashSet(), HashSet())
                 student = studentService.save(student)
                 emailService.sendRegistrationEmail(student)
                 "Student has been successfully registered"

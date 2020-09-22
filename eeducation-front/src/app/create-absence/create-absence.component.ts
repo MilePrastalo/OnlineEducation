@@ -53,6 +53,11 @@ export class CreateAbsenceComponent implements OnInit {
         alert(error);
       }
     );
+    this.absenceService.test().subscribe(
+      response => {
+        console.log(response);
+      }
+    );
   }
 
   onAbsenceCreate() {

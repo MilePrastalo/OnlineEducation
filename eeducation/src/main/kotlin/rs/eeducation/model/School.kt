@@ -5,7 +5,7 @@ import javax.persistence.ManyToMany
 import javax.persistence.OneToMany
 
 @Entity
-class School(id: Long?, email: String, name: String, password: String, roles: Collection<Role>, confirmed: Boolean,
+class School(id: Long?, email: String, name: String, userPassword: String, authhority: Set<Authority>, confirmed: Boolean,
              @OneToMany
              var courses: Set<Course>,
              @ManyToMany(mappedBy = "schools")
@@ -16,5 +16,5 @@ class School(id: Long?, email: String, name: String, password: String, roles: Co
              var teacherRequest: Set<Teacher>,
              @ManyToMany
              var studentRequest: Set<Student>
-) : User(id, email, name, password, roles, confirmed) {
+) : User(id, email, name, userPassword, authhority, confirmed) {
 }

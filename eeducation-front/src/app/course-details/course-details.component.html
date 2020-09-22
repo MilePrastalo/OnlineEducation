@@ -27,16 +27,16 @@
     <mat-tab label="Students">
       <app-course-students [course]="course"></app-course-students>
     </mat-tab>
-    <mat-tab label="Grades">
-      <button *ngIf="teacherPartOfCourse()" class="margin-bottom-5 margin-top-5" mat-raised-button (click)="addGrade()">Add grade</button>
+    <mat-tab label="Grades" *ngIf="teacherPartOfCourse()">
+      <button class="margin-bottom-5 margin-top-5" mat-raised-button (click)="addGrade()">Add grade</button>
       <app-course-grades [course]="course"></app-course-grades>
     </mat-tab>
     <mat-tab label="Tests">
       <button *ngIf="teacherPartOfCourse()"  class="margin-top-5 margin-bottom-5" mat-raised-button (click)="goCreateTest()">Create test</button>
       <app-course-tests [course]="course"></app-course-tests>
     </mat-tab>
-    <mat-tab label="Absences">
-      <button *ngIf="teacherPartOfCourse()"  class="margin-top-5 margin-bottom-5" mat-raised-button (click)="addAbsence()">Add absence</button>
+    <mat-tab label="Absences" *ngIf="teacherPartOfCourse()">
+      <button class="margin-top-5 margin-bottom-5" mat-raised-button (click)="addAbsence()">Add absence</button>
       <app-course-absences [course]="course"></app-course-absences>
     </mat-tab>
     <mat-tab label="Student join requests" *ngIf="teacherPartOfCourse()">

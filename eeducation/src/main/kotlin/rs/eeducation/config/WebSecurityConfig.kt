@@ -2,10 +2,13 @@ package rs.eeducation.config
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
+import org.springframework.security.config.annotation.web.builders.WebSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.config.http.SessionCreationPolicy
@@ -18,7 +21,9 @@ import rs.eeducation.jwt.JwtRequestFilter
 import rs.eeducation.service.JwtUserDetailsService
 
 
+@Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 class WebSecurityConfig(
         private var jwtRequestFilter: JwtRequestFilter,
         private var restAuthenticationEntryPoint: JwtAuthenticationEntryPoint,
@@ -48,7 +53,7 @@ class WebSecurityConfig(
     // Defining access rights to specific URLs
     @Throws(Exception::class)
     override fun configure(http: HttpSecurity) {
-        http // comunication between client and server is stateless
+        http
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and() // for unauthorized request send 401 error
                 .exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint).and() // don't authenticate this particular request
                 .authorizeRequests().antMatchers("/auth/**").permitAll() // all other requests need to be authenticated
@@ -59,4 +64,8 @@ class WebSecurityConfig(
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter::class.java)
         http.csrf().disable()
     }
+    override fun configure(web: WebSecurity) {
+
+    }
+
 }

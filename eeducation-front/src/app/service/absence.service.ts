@@ -27,4 +27,8 @@ export class AbsenceService {
   viewAbsencesInCourse(): Observable<Array<Absence>> {
     return this.http.get<Array<Absence>>(this.path);
   }
+
+  test() {
+    return this.http.get(this.path + '/test');
+  }
 }
