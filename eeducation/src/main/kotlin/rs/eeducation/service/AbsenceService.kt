@@ -2,6 +2,7 @@ package rs.eeducation.service
 
 import org.springframework.stereotype.Service
 import rs.eeducation.dto.AddAbsenceDTO
+import rs.eeducation.exceptions.UnAuthorizedException
 import rs.eeducation.model.Absence
 import rs.eeducation.model.School
 import rs.eeducation.model.Student
@@ -32,18 +33,18 @@ class AbsenceService(private val absenceRepository: AbsenceRepository,
 
         //Check if student is taking this course
         val existing = course.students.find { studentCourse -> studentCourse.id == student.id }
-                ?: throw Exception("Student is not taking course")
+                ?: throw UnAuthorizedException("Student is not taking course")
 
         //Check if logged in person is teaching this course
         val loggedInUser = userService.getLoggedInUser()
         when (loggedInUser) {
             is Teacher -> {
                 loggedInUser.courses.find { courseTeacher -> courseTeacher.id == course.id }
-                        ?: throw Exception("Teacher is not teaching course")
+                        ?: throw UnAuthorizedException("Teacher is not teaching course")
             }
             is School -> {
                 if (course.school?.id != loggedInUser.id) {
-                    throw java.lang.Exception("School is not in charge of that course")
+                    throw UnAuthorizedException("School is not in charge of that course")
                 }
             }
         }
