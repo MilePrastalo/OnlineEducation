@@ -26,15 +26,18 @@ class LessonService(private val lessonRepository: LessonRepository,
 
     fun createLesson(createLessonDto: CreateLessonDto): Lesson {
         val course = courseService.findById(createLessonDto.courseId)
-        var lessonContent: LessonContent = if (createLessonDto.lessonPath == null) {
-           val content =  LessonContent(null, createLessonDto.lessonContent)
+
+        val isLinked = createLessonDto.lessonPath != null
+
+        val lessonContent: LessonContent = if (createLessonDto.lessonPath == null) {
+            val content = LessonContent(null, createLessonDto.lessonContent)
             lessonContentRepository.save(content);
 
         } else {
             lessonContentRepository.findById(createLessonDto.lessonPath!!).orElseThrow { EntityNotFoundException("Lesson path not found") }
         }
         userService.teacherTeacherCourse(userService.getLoggedInUser()!!, course)
-        val lesson = save(Lesson(null, course, HashSet(), HashSet(), createLessonDto.name, createLessonDto.date, lessonContent.id!!))
+        val lesson = save(Lesson(null, course, HashSet(), HashSet(), createLessonDto.name, createLessonDto.date, lessonContent.id!!, isLinked))
         (course.lessons as MutableSet).add(lesson)
         courseService.save(course)
 

@@ -1,11 +1,11 @@
+<app-navbar></app-navbar>
 <div>
   <h1>{{lesson.name}}</h1>
-  <h3>Lesson link: {{lesson.lessonLink}}</h3>
-  <div id="lessonContent"></div>
+  <quill-view [content]="content" theme="snow"></quill-view>
   <div>
-    <h2>Comments</h2>
-    <span *ngFor="let comment of lesson.comments"><app-comment *ngIf="!comment.reply" [lesson]="lesson"
-                                                               [comment]="comment"></app-comment></span>
+    <h2 class="center">Comments</h2>
+    <div class="comment" *ngFor="let comment of lesson.comments"><app-comment *ngIf="!comment.reply" [lesson]="lesson"
+                                                               [comment]="comment"></app-comment></div>
   </div>
   <div>
     <mat-card class="create-lesson-card">
@@ -21,7 +21,10 @@
       </form>
     </mat-card>
   </div>
-  <button *ngIf="teacherPartOfCourse()" mat-raised-button color="warn" (click)="delete()">Delete lesson</button>
-  <button *ngIf="teacherPartOfCourse()" mat-raised-button (click)="edit()">Edit lesson</button>
+  <div class="bottom">
+    <button *ngIf="teacherPartOfCourse()" mat-raised-button color="warn" (click)="delete()">Delete lesson</button>
+    <button *ngIf="teacherPartOfCourse() && (!lesson.linked)" mat-raised-button (click)="edit()">Edit lesson</button>
+  </div>
+
 
 </div>

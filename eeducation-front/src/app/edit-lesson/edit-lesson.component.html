@@ -1,7 +1,5 @@
+<app-navbar></app-navbar>
 <div>
-  <mat-card class="create-lesson-card">
-    <div id="preview" ></div>
-  </mat-card>
   <div>
     <mat-card class="create-lesson-card">
       <form class="form" [formGroup]="lessonForm" (ngSubmit)="lessonForm.valid && onLessonSubmit()">
@@ -24,22 +22,10 @@
           <mat-error>ends can not be blank.</mat-error>
         </mat-form-field>
         <div id="pallet">
-          <div>
-            <button type='button' (click)="setElement('h1')">h1</button>
-            <button type='button' (click)="setElement('h2')">h2</button>
-            <button type='button' (click)="setElement('h3')">h3</button>
-            <button type='button' (click)="setElement('b')">bold</button>
-            <button type='button' (click)="setElement('i')">italic</button>
-            <button type='button' (click)="setElement('u')">underline</button>
-            <button type='button' (click)="setElement('q')">Quote</button>
-            <button type='button' (click)="setImage()">Image</button>
-            <button type='button' (click)="setVideo()">Video</button>
-          </div>
-          <div>
-            <textarea (keyup)="textChange($event)" id="textArea"></textarea>
-          </div>
+          <quill-editor id="editor" formControlName="content">
+          </quill-editor>
         </div>
-        <button>Edit lesson</button>
+        <button mat-raised-button>Edit lesson</button>
       </form>
     </mat-card>
   </div>

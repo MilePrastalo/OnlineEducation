@@ -9,6 +9,7 @@ export class Lesson {
               public name: string,
               public date: Date,
               public courseId: number,
-              public lessonLink: string) {
+              public lessonLink: string,
+              public linked: boolean) {
   }
 }

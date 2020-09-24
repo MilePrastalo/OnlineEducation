@@ -49,6 +49,7 @@ import { CourseCardComponent } from './course-card/course-card.component';
 import { SchoolCardComponent } from './school-card/school-card.component';
 import { TestGradingComponent } from './test-grading/test-grading.component';
 import {OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
+import { QuillModule } from 'ngx-quill'
 
 @NgModule({
   declarations: [
@@ -102,6 +103,7 @@ import {OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
     CdkTableModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
+    QuillModule.forRoot()
 
   ],
   providers: [

@@ -1,6 +1,8 @@
 package rs.eeducation.service
 
 import org.springframework.stereotype.Service
+import rs.eeducation.model.Course
+import rs.eeducation.model.Lesson
 import rs.eeducation.model.School
 import rs.eeducation.model.Teacher
 import rs.eeducation.repository.TeacherRepository
@@ -24,5 +26,20 @@ class TeacherService(private val teacherRepository: TeacherRepository, private v
     fun getTeacherSchools(): List<School> {
         var teacher = userService.getLoggedInUser() as Teacher
         return teacher.schools.toList()
+    }
+
+    fun getTeacherLessons(): List<Lesson> {
+        val teacher = userService.getLoggedInUser()
+        if (teacher is Teacher) {
+            val courses = teacher.courses
+            val lessons = ArrayList<Lesson>()
+            courses.forEach { course: Course ->
+                course.lessons.forEach { lesson: Lesson ->
+                    lessons.add(lesson)
+                }
+            }
+            return lessons.filter { lesson -> lesson.lessonContentId != null && lesson.name != null }
+        }
+        return ArrayList()
     }
 }

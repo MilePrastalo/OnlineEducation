@@ -17,9 +17,9 @@ import {VisibilityService} from '../service/visibility.service';
 export class LessonComponent implements OnInit {
   lesson: Lesson;
   lessonId: number;
-  lessonContent: HTMLElement;
   addCommentForm: FormGroup;
   course: Course;
+  content: string;
 
   constructor(private lessonService: LessonService,
               private router: Router,
@@ -40,16 +40,11 @@ export class LessonComponent implements OnInit {
         Validators.required
       ]]
     });
-    this.lessonContent = document.getElementById('lessonContent') as HTMLElement;
     this.lessonId = Number(this.route.snapshot.paramMap.get('id'));
     this.lessonService.getLesson(this.lessonId).subscribe(
       response => {
         this.lesson = response;
-        this.lessonContent.innerHTML = '';
-        const split = this.lesson.lessonContent.split('\n');
-        for (const part of split) {
-          this.lessonContent.innerHTML = this.lessonContent.innerHTML + '<br/>' + part;
-        }
+        this.content = this.lesson.lessonContent;
         this.courseService.getCourse(this.lesson.courseId).subscribe(
           courseResponse => {
             this.course = courseResponse;

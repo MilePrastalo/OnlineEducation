@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import rs.eeducation.dto.LessonLinkDto
 import rs.eeducation.dto.SchoolDto
 import rs.eeducation.service.TeacherService
 
@@ -25,6 +26,13 @@ class TeacherController(private val teacherService: TeacherService) {
         return ResponseEntity(dto, HttpStatus.OK)
     }
 
+    @GetMapping(value = ["lessons"])
+    @PreAuthorize("hasAuthority('TEACHER')")
+    fun getTeacherLessons(): ResponseEntity<List<LessonLinkDto>> {
+        val lessons = teacherService.getTeacherLessons()
+        val dto = lessons.map { lesson -> LessonLinkDto(lesson.course.name + " : " + lesson.name, lesson.lessonContentId) }
+        return ResponseEntity(dto, HttpStatus.OK)
+    }
 
 
 }

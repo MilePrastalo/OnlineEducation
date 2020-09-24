@@ -15,15 +15,11 @@ import {EditLesson} from '../model/EditLesson';
   styleUrls: ['./edit-lesson.component.scss']
 })
 export class EditLessonComponent implements OnInit {
-
-  textArea: HTMLTextAreaElement;
-  preview: HTMLElement;
   image: string;
   lessonForm: FormGroup;
   courseId: number;
   lessonId: number;
   lesson: Lesson;
-
   constructor(private lessonService: LessonService,
               public dialog: MatDialog,
               private formBuilder: FormBuilder,
@@ -40,92 +36,38 @@ export class EditLessonComponent implements OnInit {
   get date() {
     return this.lessonForm.controls.date.value as string;
   }
+  get content() {
+    return this.lessonForm.controls.content.value as string;
+  }
 
   ngOnInit(): void {
     this.lessonId = Number(this.route.snapshot.paramMap.get('id'));
-    this.textArea = document.getElementById('textArea') as HTMLTextAreaElement;
-    this.preview = document.getElementById('preview') as HTMLElement;
     this.lessonForm = this.formBuilder.group({
       name: ['', [
         Validators.required
       ]],
       date: ['', [
         Validators.required,
-      ]]
+      ]],
+      content: ['', [
+        Validators.required,
+      ]],
     });
     this.lessonService.getLesson(this.lessonId).subscribe(
       response => {
         this.lesson = response;
-        this.textArea.value = response.lessonContent;
+        this.lessonForm.controls.content.setValue(this.lesson.lessonContent);
         this.lessonForm.controls.name.setValue(response.name);
         this.lessonForm.controls.date.setValue(response.date);
         this.courseId = this.lesson.courseId;
-        this.changePreview();
       }, error => {
 
       });
-
-
   }
 
-
-  setElement(elemet) {
-    const start = this.textArea.selectionStart;
-    const end = this.textArea.selectionEnd;
-    let sel = this.textArea.value.substring(start, end);
-    sel = '<' + elemet + '>' + sel + '</' + elemet + '>';
-    this.textArea.setRangeText(sel, start, end);
-    this.changePreview();
-  }
-
-  setImage() {
-    const dialogRef = this.dialog.open(ImageDialogComponent, {
-      width: '250px',
-      data: {name: 'image', image: this.image}
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        const start = this.textArea.selectionStart;
-        const sel = '<img width="40%" src="' + result + '">';
-        this.textArea.setRangeText(sel, start, start);
-        this.changePreview();
-      }
-    });
-  }
-
-  setVideo() {
-    const dialogRef = this.dialog.open(ImageDialogComponent, {
-      width: '250px',
-      data: {name: 'video', image: this.image}
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        const start = this.textArea.selectionStart;
-        const split = result.split('?v=');
-        const id = split[split.length - 1];
-        console.log(id);
-        const sel = ' <iframe width="560" height="315" src="https://www.youtube.com/embed/' + id + '"></iframe>';
-        this.textArea.setRangeText(sel, start, start);
-        this.changePreview();
-      }
-    });
-  }
-
-  changePreview() {
-    const tex = this.textArea.value;
-    const splitted = tex.split('\n');
-    this.preview.innerHTML = '';
-    for (const part of splitted) {
-      this.preview.innerHTML = this.preview.innerHTML + '<br>' + part;
-    }
-  }
-
-  textChange(event) {
-    this.changePreview();
-  }
 
   onLessonSubmit() {
-    const editLesson = new EditLesson(this.lessonId, this.courseId, this.textArea.value, this.name, this.date);
+    const editLesson = new EditLesson(this.lessonId, this.courseId, this.content, this.name, this.date);
     this.lessonService.editLesson(editLesson).subscribe(
       response => {
         this.router.navigateByUrl('lesson/' + this.lessonId);

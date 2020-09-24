@@ -15,6 +15,7 @@ class LessonDto {
     var date: Date
     var courseId: Long
     var lessonLink: String
+    var linked: Boolean?
 
     constructor(id: Long?,
                 absences: List<Absence>,
@@ -23,7 +24,7 @@ class LessonDto {
                 name: String,
                 date: Date,
                 courseId: Long,
-                lessonLink: String) {
+                lessonLink: String, linked: Boolean) {
         this.id = id
         this.absences = absences
         this.comments = comments
@@ -32,6 +33,7 @@ class LessonDto {
         this.date = date
         this.courseId = courseId
         this.lessonLink = lessonLink
+        this.linked = linked
     }
 
     constructor(lesson: Lesson, content: String, link: String) {
@@ -43,5 +45,6 @@ class LessonDto {
         this.date = lesson.date
         this.courseId = lesson.course.id!!
         this.lessonLink = link
+        this.linked = lesson.linked
     }
 }

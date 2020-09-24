@@ -18,6 +18,8 @@ class Lesson(@Id
              @Column
              var date: Date,
              @Column
-             var lessonContentId: String
+             var lessonContentId: String,
+             @Column
+             var linked: Boolean?
 ) {
 }
