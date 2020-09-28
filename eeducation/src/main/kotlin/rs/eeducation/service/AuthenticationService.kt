@@ -5,7 +5,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 import rs.eeducation.dto.AuthenticationRequest
-import rs.eeducation.dto.RegistrationRequest
+import rs.eeducation.dto.RegistrationRequestDTO
 import rs.eeducation.exceptions.AccountNotActiveException
 import rs.eeducation.jwt.JwtTokenUtil
 import rs.eeducation.model.*
@@ -38,27 +38,27 @@ class AuthenticationService(private var authenticationManager: AuthenticationMan
         return userService.findByEmail(email)
     }
 
-    fun register(registrationRequest: RegistrationRequest): String {
+    fun register(registrationRequestDTO: RegistrationRequestDTO): String {
         val authorities = HashSet<Authority>()
         val bc = BCryptPasswordEncoder()
-        return when (registrationRequest.userType) {
+        return when (registrationRequestDTO.userType) {
             UserType.SCHOOL -> {
                 authorities.add(authorityRepository.findByName("SCHOOL")!!)
-                var school = School(null, registrationRequest.email, bc.encode(registrationRequest.password), registrationRequest.name, authorities, false, HashSet(), HashSet(), HashSet(), HashSet(), HashSet())
+                var school = School(null, registrationRequestDTO.email, bc.encode(registrationRequestDTO.password), registrationRequestDTO.name, authorities, false, HashSet(), HashSet(), HashSet(), HashSet(), HashSet())
                 school = schoolService.save(school)
                 emailService.sendRegistrationEmail(school)
                 "School has been successfully registered"
             }
             UserType.TEACHER -> {
                 authorities.add(authorityRepository.findByName("TEACHER")!!)
-                var teacher = Teacher(null, registrationRequest.email, bc.encode(registrationRequest.password), registrationRequest.name, authorities, false, HashSet(), HashSet(), HashSet())
+                var teacher = Teacher(null, registrationRequestDTO.email, bc.encode(registrationRequestDTO.password), registrationRequestDTO.name, authorities, false, HashSet(), HashSet(), HashSet())
                 teacher = teacherService.save(teacher)
                 emailService.sendRegistrationEmail(teacher)
                 "Teacher has been successfully registered"
             }
             UserType.STUDENT -> {
                 authorities.add(authorityRepository.findByName("STUDENT")!!)
-                var student = Student(null, registrationRequest.email, registrationRequest.name, bc.encode(registrationRequest.password), authorities, false, HashSet(), HashSet(), HashSet(), HashSet(), HashSet())
+                var student = Student(null, registrationRequestDTO.email, registrationRequestDTO.name, bc.encode(registrationRequestDTO.password), authorities, false, HashSet(), HashSet(), HashSet(), HashSet(), HashSet())
                 student = studentService.save(student)
                 emailService.sendRegistrationEmail(student)
                 "Student has been successfully registered"

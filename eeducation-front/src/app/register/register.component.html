@@ -36,7 +36,7 @@
           <input id="confirmedPassword"
                  matInput
                  formControlName="confirmedPassword"
-                 placeholder="confirmedPassword"
+                 placeholder="Confirm password"
                  [type]="hide ? 'confirmedPassword':'text'"/>
           <mat-error>Confirmed Password can not be blank.</mat-error>
           <mat-icon matSuffix (click)="hide = !hide">
@@ -54,7 +54,7 @@
           <mat-select id="userType"
                       matInput
                       formControlName="userType"
-                      placeholder="userType">
+                      placeholder="User type">
             <mat-option value="STUDENT">STUDENT</mat-option>
             <mat-option value="TEACHER">TEACHER</mat-option>
             <mat-option value="SCHOOL">SCHOOL</mat-option>

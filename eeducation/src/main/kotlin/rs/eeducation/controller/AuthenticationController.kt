@@ -19,13 +19,13 @@ class AuthenticationController(private val authenticationService: Authentication
         val token = authenticationService.login(authenticationRequest)
         val user = authenticationService.getUserByEmail(authenticationRequest.email)
         val userDto = UserBasicDto(user.id, user.email, user.name)
-        val authenticationResponse = AuthenticationResponse(token,userDto)
+        val authenticationResponse = AuthenticationResponse(token, userDto)
         return ResponseEntity(authenticationResponse, HttpStatus.OK)
     }
 
     @PostMapping(value = ["register"], consumes = [MediaType.APPLICATION_JSON_VALUE], produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun register(@RequestBody registrationRequest: RegistrationRequest): ResponseEntity<RegistrationResponse> {
-        val response = authenticationService.register(registrationRequest)
+    fun register(@RequestBody registrationRequestDTO: RegistrationRequestDTO): ResponseEntity<RegistrationResponse> {
+        val response = authenticationService.register(registrationRequestDTO)
         return ResponseEntity(RegistrationResponse(response), HttpStatus.OK)
     }
 
@@ -34,5 +34,4 @@ class AuthenticationController(private val authenticationService: Authentication
         authenticationService.confirm(emailEncoded)
         return RedirectView("http://localhost:4200")
     }
-
 }
