@@ -5,6 +5,7 @@ export class TestResult {
   public date: Date;
   public studentId: number;
   public userQuestionResults: Array<UserQuestionResult>;
+  public score: string;
 
   constructor(testId: number) {
     this.testId = testId;

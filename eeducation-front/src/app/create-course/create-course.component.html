@@ -2,6 +2,7 @@
   <app-navbar></app-navbar>
   <div class="form-wrapper">
     <mat-card class="box" id="login-box">
+      <h1>Create course</h1>
       <form class="form" [formGroup]="courseForm" (ngSubmit)="courseForm.valid && onCourseCreate()">
         <mat-card-content>
           <mat-form-field class="field-full-width">
@@ -62,6 +63,20 @@
                    placeholder="teachers"
             />
             <mat-error>teachers can not be blank.</mat-error>
+          </mat-form-field>
+          <mat-form-field class="field-full-width">
+            <mat-select id="freeToJoin"
+                        formControlName="freeToJoin"
+                        placeholder="Who can join course">
+              <mat-option value="1">
+                Free to Join
+              </mat-option>
+              <mat-option value="0">
+                Needs approval
+              </mat-option>
+            </mat-select>
+
+            <mat-error>school can not be blank.</mat-error>
           </mat-form-field>
         </mat-card-content>
         <button id="createBt" mat-stroked-button color="primary" class="btn-block">Create course</button>

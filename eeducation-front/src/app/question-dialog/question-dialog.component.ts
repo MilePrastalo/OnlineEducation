@@ -19,7 +19,7 @@ export class QuestionDialogComponent implements OnInit {
   }
 
   getQuestion(): Question {
-    const question = new Question(null, this.data.text, this.data.type, new Array<Answer>());
+    const question = new Question(null, this.data.text, this.data.type, new Array<Answer>(), this.data.questionPoints);
     return question;
   }
 

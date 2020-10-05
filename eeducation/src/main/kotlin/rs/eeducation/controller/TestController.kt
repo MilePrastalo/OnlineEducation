@@ -6,9 +6,8 @@ import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
 import rs.eeducation.coverters.TestConverter
-import rs.eeducation.dto.CreateTestDto
-import rs.eeducation.dto.TestDTO
-import rs.eeducation.dto.TestResultDto
+import rs.eeducation.dto.*
+import rs.eeducation.model.TestType
 import rs.eeducation.service.TestService
 import java.util.*
 import kotlin.collections.ArrayList
@@ -40,7 +39,8 @@ class TestController(private val testService: TestService) {
     @PreAuthorize("hasAuthority('STUDENT')")
     fun studentSubmitsTest(@RequestBody testResultDto: TestResultDto): ResponseEntity<TestResultDto> {
         val testResult = testService.studentSubmitsTest(testResultDto)
-        return ResponseEntity(TestResultDto(testResult.id!!, Date(), testResult.student.id!!, ArrayList()), HttpStatus.OK)
+        val score = if(testResult.test.testType == TestType.SELF_GRADING) testService.gradeTest(testResult) else ""
+        return ResponseEntity(TestResultDto(testResult.id!!, Date(), testResult.student.id!!, ArrayList(), score), HttpStatus.OK)
     }
 
     @GetMapping(value = ["{testId}"])
@@ -55,17 +55,18 @@ class TestController(private val testService: TestService) {
         return ResponseEntity(dto, HttpStatus.OK)
     }
 
-    //Teacher views list of tests that have to be graded
-    fun viewTestsToBeGraded() {
-
+    @GetMapping(value = ["testResults/{testId}"])
+    fun viewTestResults(@PathVariable("testId") testId: Long): ResponseEntity<List<TestResultListDto>> {
+        val testResults = testService.getTestResults(testId)
+        val dto = testResults.map { testResults -> TestResultListDto(testResults) }
+        return ResponseEntity(dto, HttpStatus.OK)
     }
 
     //View students test answers
-    fun viewStudentTestAnswers() {}
-
-
-    //Teacher grades test that is not self grade-ing
-    fun teacherGradesTest() {
-
+    @GetMapping(value = ["testResult/{testResultId}"])
+    fun viewStudentTestAnswers(@PathVariable("testResultId") testResultId: Long): ResponseEntity<TestResultViewDto> {
+        val testResult = testService.viewStudentTestAnswer(testResultId)
+        val dto = TestResultViewDto(testResult)
+        return ResponseEntity(dto, HttpStatus.OK)
     }
 }

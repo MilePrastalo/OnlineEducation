@@ -12,7 +12,7 @@ export class CourseTestsComponent implements OnInit {
 
   tests: Array<Test>;
   @Input() course: Course;
-  displayedColumns = ['name', 'date', 'duration', 'take'];
+  displayedColumns = ['name', 'date', 'duration', 'take', 'viewTestResults'];
 
   constructor(private router: Router) {
   }
@@ -31,6 +31,11 @@ export class CourseTestsComponent implements OnInit {
     const now = new Date();
     const newDateObj = new Date(new Date(test.date).getTime() + test.duration * 60000);
     return (now.getTime() > new Date(test.date).getTime()) && now.getTime() < newDateObj.getTime();
+  }
+
+  viewTestResults(test: number) {
+    this.router.navigateByUrl('testResult/' + test);
+
   }
 
 }

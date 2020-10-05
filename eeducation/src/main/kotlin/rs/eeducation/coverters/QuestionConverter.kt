@@ -7,11 +7,11 @@ class QuestionConverter {
 
     companion object {
         fun toDto(question: Question): QuestionDto {
-            return QuestionDto(question.id, question.name, question.questionType, question.answer.map { answer -> AnswerConverter.toDto(answer) })
+            return QuestionDto(question.id, question.name, question.questionType, question.answer.map { answer -> AnswerConverter.toDto(answer) }, question.questionPoints)
         }
 
         fun toQuestion(dto: QuestionDto): Question {
-            return Question(dto.id, dto.name, dto.questionType, dto.answer.map { answerDto -> AnswerConverter.toAnswer(answerDto) }.toSet())
+            return Question(dto.id, dto.name, dto.questionType, dto.answer.map { answerDto -> AnswerConverter.toAnswer(answerDto) }.toSet(), dto.questionPoints)
         }
     }
 }

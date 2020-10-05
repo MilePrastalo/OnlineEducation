@@ -19,6 +19,12 @@
         <button (click)="takeTest(element.id)" mat-raised-button>Take test</button>
       </td>
     </ng-container>
+    <ng-container matColumnDef="viewTestResults">
+      <th mat-header-cell *cdkHeaderCellDef> View test results</th>
+      <td mat-cell *cdkCellDef="let element">
+        <button (click)="viewTestResults(element.id)" mat-raised-button>View test results</button>
+      </td>
+    </ng-container>
 
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

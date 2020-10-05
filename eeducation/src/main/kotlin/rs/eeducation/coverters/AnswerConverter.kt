@@ -7,11 +7,11 @@ class AnswerConverter {
 
     companion object {
         fun toDto(answer: Answer): AnswerDto {
-            return AnswerDto(answer.id, answer.answerText, answer.correct)
+            return AnswerDto(answer.id, answer.answerText, answer.correct, answer.answerType)
         }
 
         fun toAnswer(dto: AnswerDto): Answer {
-            return Answer(dto.id, dto.answerText, dto.correct)
+            return Answer(dto.id, dto.answerText, dto.correct, dto.answerType)
         }
     }
 }

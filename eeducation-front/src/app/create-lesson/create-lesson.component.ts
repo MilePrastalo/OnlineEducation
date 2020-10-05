@@ -73,7 +73,6 @@ export class CreateLessonComponent implements OnInit {
   onLessonSubmit() {
     let lessonPath: string = null;
     let createLesson: CreateLesson = null;
-    const quill = (document.getElementById('quill') as HTMLElement);
     if (this.lessonType === 'LINK') {
       lessonPath = this.link;
       createLesson = new CreateLesson(this.courseId, '', this.name, this.date, lessonPath);
@@ -82,7 +81,6 @@ export class CreateLessonComponent implements OnInit {
     }
     this.lessonService.createLesson(createLesson).subscribe(
       response => {
-        console.log(response);
         this.router.navigateByUrl('course/' + this.courseId);
       }
     );

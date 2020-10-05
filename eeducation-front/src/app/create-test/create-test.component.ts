@@ -70,7 +70,7 @@ export class CreateTestComponent implements OnInit {
   addQuestion() {
     const dialogRef = this.dialog.open(QuestionDialogComponent, {
       width: '250px',
-      data: {text: '', type: ''}
+      data: {text: '', type: '', testType: this.testType}
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
@@ -85,7 +85,7 @@ export class CreateTestComponent implements OnInit {
     console.log(q);
     const dialogRef = this.dialog.open(AnswerDialogComponent, {
       width: '250px',
-      data: {question: q, text: '', checked: false}
+      data: {question: q, text: '', checked: false, questionType: q.questionType}
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
@@ -100,7 +100,7 @@ export class CreateTestComponent implements OnInit {
     let displayAlert = false;
     if (this.testType === 'SELF_GRADING') {
       for (const question of this.questions) {
-        if (question.questionType === 'SHORT_ANSWER' || question.questionType === 'PARAGRAPH') {
+        if (question.questionType === 'PARAGRAPH') {
           displayAlert = true;
           break;
         }

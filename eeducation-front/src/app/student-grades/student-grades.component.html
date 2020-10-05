@@ -1,6 +1,6 @@
 <div>
-  <div *ngFor="let grade of grades">
-    <span>{{grade.courseName}}</span>
-    <span>{{grade.grade}}</span>
-  </div>
+  <mat-list>
+    <mat-list-item *ngFor="let grade of grades">{{grade.courseName}} <span class="grade">{{grade.grade}}</span></mat-list-item>
+
+  </mat-list>
 </div>

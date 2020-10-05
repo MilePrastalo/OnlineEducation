@@ -5,7 +5,8 @@ import java.util.*
 class TestResultDto(val testId: Long,
                     val date: Date,
                     val studentId: Long,
-                    var userQuestionResults: List<UserQuestionResultDto>) {
+                    var userQuestionResults: List<UserQuestionResultDto>,
+                    var score: String?) {
 
 
 }

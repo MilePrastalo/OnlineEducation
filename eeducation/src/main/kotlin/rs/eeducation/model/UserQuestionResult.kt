@@ -9,5 +9,7 @@ class UserQuestionResult(@Id
                          @ManyToOne
                          var question: Question,
                          @OneToMany
-                         var userAnswer: Set<UserAnswer>) {
+                         var userAnswer: Set<UserAnswer>,
+                         @Column
+                         var points: Int?) {
 }

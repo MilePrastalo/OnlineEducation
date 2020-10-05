@@ -10,6 +10,8 @@ import {Answer} from '../model/Answer';
 })
 export class AnswerDialogComponent implements OnInit {
 
+  selectedValue = 'PERFECT_MATCH';
+
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
   }
 
@@ -30,8 +32,17 @@ export class AnswerDialogComponent implements OnInit {
     return false;
   }
 
+  changeSelectedValue($event) {
+    this.selectedValue = $event.value;
+  }
+
   getAnswer() {
-    const answer = new Answer(null, this.data.text, this.data.checked);
+    let answer: Answer;
+    if (this.data.question.questionType !== 'SHORT_ANSWER') {
+      answer = new Answer(null, this.data.text, this.data.checked, null);
+    } else {
+      answer = new Answer(null, this.data.text, this.data.checked, this.selectedValue);
+    }
     return answer;
   }
 }

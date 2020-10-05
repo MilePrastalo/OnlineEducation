@@ -21,6 +21,8 @@ import {EditLessonComponent} from './edit-lesson/edit-lesson.component';
 import {UserProfileComponent} from './user-profile/user-profile.component';
 import {TeacherHomeComponent} from './teacher-home/teacher-home.component';
 import {SchoolHomeComponent} from './school-home/school-home.component';
+import {TestResultsComponent} from './test-results/test-results.component';
+import {UserTestResultComponent} from './user-test-result/user-test-result.component';
 
 
 const routes: Routes = [
@@ -42,7 +44,9 @@ const routes: Routes = [
   {path: 'teacher-home', component: TeacherHomeComponent, canActivate: [LoggedInGuard]},
   {path: 'school-home', component: SchoolHomeComponent, canActivate: [LoggedInGuard]},
   {path: 'edit-lesson/:id', component: EditLessonComponent, canActivate: [LoggedInGuard]},
-  {path: 'profile', component: UserProfileComponent, canActivate: [LoggedInGuard]}
+  {path: 'profile', component: UserProfileComponent, canActivate: [LoggedInGuard]},
+  {path: 'testResult/:id', component: TestResultsComponent, canActivate: [LoggedInGuard]},
+  {path: 'userTestResults/:id', component: UserTestResultComponent, canActivate: [LoggedInGuard]}
 ];
 
 @NgModule({

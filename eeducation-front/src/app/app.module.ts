@@ -49,7 +49,10 @@ import { CourseCardComponent } from './course-card/course-card.component';
 import { SchoolCardComponent } from './school-card/school-card.component';
 import { TestGradingComponent } from './test-grading/test-grading.component';
 import {OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
-import { QuillModule } from 'ngx-quill'
+import { QuillModule } from 'ngx-quill';
+import { CommentDialogComponent } from './comment-dialog/comment-dialog.component';
+import { TestResultsComponent } from './test-results/test-results.component';
+import { UserTestResultComponent } from './user-test-result/user-test-result.component'
 
 @NgModule({
   declarations: [
@@ -91,6 +94,9 @@ import { QuillModule } from 'ngx-quill'
     CourseCardComponent,
     SchoolCardComponent,
     TestGradingComponent,
+    CommentDialogComponent,
+    TestResultsComponent,
+    UserTestResultComponent,
   ],
   imports: [
     BrowserModule,

@@ -20,6 +20,7 @@ export class TestComponent implements OnInit {
   timer = '30:30';
   timeRemaining: number;
   testResults: TestResult;
+  score: string;
 
   constructor(private testService: TestService, private router: Router, private route: ActivatedRoute,
               private snackBar: MatSnackBar) {
@@ -69,11 +70,12 @@ export class TestComponent implements OnInit {
 
   questionAnsweredRadio(questionId, answerText, answerId, $event) {
     let exist = false;
+    console.log(answerId);
     for (const question of this.testResults.userQuestionResults) {
       if (question.questionId === questionId) {
         exist = true;
         question.answers = [];
-        const answer = new Answer(answerId, answerText, false);
+        const answer = new Answer(answerId, answerText, false, null);
         question.answers.push(answer);
         return;
       }
@@ -81,9 +83,10 @@ export class TestComponent implements OnInit {
     if (!exist) {
       const userQuestionResult = new UserQuestionResult();
       userQuestionResult.questionId = questionId;
-      userQuestionResult.answers = [new Answer(answerId, answerText, false)];
+      userQuestionResult.answers = [new Answer(answerId, answerText, false, null)];
       this.testResults.userQuestionResults.push(userQuestionResult);
     }
+    console.log(this.testResults);
   }
 
   questionAnsweredChecked(questionId, answerText, answerId, $event) {
@@ -92,7 +95,7 @@ export class TestComponent implements OnInit {
       if (question.questionId === questionId) {
         exist = true;
         if ($event.checked) {
-          question.answers.push(new Answer(answerId, answerText, false));
+          question.answers.push(new Answer(answerId, answerText, false, null));
         } else {
           for (let i = 0; i < question.answers.length; i++) {
             if (question.answers[i].id === answerId) {
@@ -105,7 +108,7 @@ export class TestComponent implements OnInit {
     if (!exist) {
       const userQuestionResult = new UserQuestionResult();
       userQuestionResult.questionId = questionId;
-      userQuestionResult.answers = [new Answer(answerId, answerText, false)];
+      userQuestionResult.answers = [new Answer(answerId, answerText, false, null)];
       this.testResults.userQuestionResults.push(userQuestionResult);
     }
   }
@@ -116,25 +119,30 @@ export class TestComponent implements OnInit {
     for (const question of this.testResults.userQuestionResults) {
       if (question.questionId === questionId) {
         exist = true;
-        const answer = new Answer(null, input, false);
+        const answer = new Answer(null, input, false, null);
         question.answers = [answer];
       }
     }
     if (!exist) {
       const userQuestionResult = new UserQuestionResult();
       userQuestionResult.questionId = questionId;
-      userQuestionResult.answers = [new Answer(null, input, false)];
+      userQuestionResult.answers = [new Answer(null, input, false, null)];
       this.testResults.userQuestionResults.push(userQuestionResult);
     }
   }
 
   finish() {
     this.testResults.date = new Date();
+    console.log(this.testResults);
     this.testService.studentSubmitsTest(this.testResults).subscribe(
       response => {
-        this.router.navigateByUrl('course/' + this.test.courseId);
+        this.testResults = response;
+        this.score = this.testResults.score;
       }
     );
+  }
+  back(){
+    this.router.navigateByUrl('course/' + this.test.courseId);
   }
 
 }

@@ -45,6 +45,9 @@ export class CreateCourseComponent implements OnInit {
     return this.courseForm.controls.description.value as string;
   }
 
+  get freeToJoin() {
+    return this.courseForm.controls.freeToJoin.value as number;
+  }
 
   ngOnInit(): void {
     this.courseForm = this.formBuilder.group({
@@ -65,6 +68,9 @@ export class CreateCourseComponent implements OnInit {
       ]],
       description: ['', [
         Validators.required
+      ]],
+      freeToJoin: ['', [
+        Validators.required
       ]]
     });
 
@@ -83,7 +89,11 @@ export class CreateCourseComponent implements OnInit {
   onCourseCreate() {
     console.log(this.begins);
     const t = this.teachers.split(',');
-    const createCourse = new CreateCourse(this.name, this.begins, this.ends, this.school, t, true, this.description);
+    let isFreeToJoin = false;
+    if (this.freeToJoin === 1) {
+      isFreeToJoin = true;
+    }
+    const createCourse = new CreateCourse(this.name, this.begins, this.ends, this.school, t, isFreeToJoin, this.description);
     console.log(createCourse);
     this.courseService.addCourse(createCourse).subscribe(
       response => {

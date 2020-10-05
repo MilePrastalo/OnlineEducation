@@ -19,8 +19,6 @@
         </mat-form-field>
 
 
-
-
         <mat-form-field class="field-full-width">
           <input id="duration"
                  matInput
@@ -47,12 +45,19 @@
     <ol>
       <li *ngFor="let question of questions">
         <h3>{{question.name}}</h3>
+        <h4>Points: {{question.questionPoints}}</h4>
+
         <h4>{{getQuestionTypeString(question.questionType)}}</h4>
         <ul>
           <li *ngFor="let answer of question.answer">{{answer.answerText}}</li>
         </ul>
         <div *ngIf="question.questionType=='MULTIPLE_CHOICE'|| question.questionType=='CHECKBOXES'">
           <button mat-raised-button (click)="addAnswer(question)">Add answer</button>
+        </div>
+        <div *ngIf="question.questionType=='SHORT_ANSWER'">
+          <button *ngIf="question.answer.length === 0" mat-raised-button (click)="addAnswer(question)">Add answer
+          </button>
+
         </div>
       </li>
     </ol>

@@ -11,5 +11,7 @@ class Question(@Id
                @Enumerated(EnumType.STRING)
                var questionType: QuestionType,
                @OneToMany
-               var answer: Set<Answer>) {
+               var answer: Set<Answer>,
+               @Column
+               var questionPoints: Int) {
 }

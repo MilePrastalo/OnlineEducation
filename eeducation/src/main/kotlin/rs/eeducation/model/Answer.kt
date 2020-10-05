@@ -1,10 +1,7 @@
 package rs.eeducation.model
 
 import org.springframework.lang.Nullable
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
+import javax.persistence.*
 
 @Entity
 class Answer(@Id
@@ -13,5 +10,7 @@ class Answer(@Id
              @Column
              var answerText: String,
              @Column
-             var correct: Boolean?) {
+             var correct: Boolean?,
+             @Enumerated(EnumType.STRING)
+             var answerType: ANSWER_TYPE?) {
 }

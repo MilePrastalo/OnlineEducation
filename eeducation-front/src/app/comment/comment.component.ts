@@ -5,6 +5,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {CommentService} from '../service/comment.service';
 import {AddComment} from '../model/AddComment';
 import {Lesson} from '../model/Lesson';
+import {CommentDialogComponent} from '../comment-dialog/comment-dialog.component';
 
 @Component({
   selector: 'app-comment',
@@ -25,7 +26,7 @@ export class CommentComponent implements OnInit {
   }
 
   reply() {
-    const dialogRef = this.dialog.open(ImageDialogComponent, {
+    const dialogRef = this.dialog.open(CommentDialogComponent, {
       width: '250px',
       data: {text: this.replyText}
     });

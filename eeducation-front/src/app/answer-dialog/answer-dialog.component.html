@@ -1,7 +1,18 @@
 <h2 mat-dialog-title>Add question</h2>
 <mat-dialog-content>Enter answer</mat-dialog-content>
-<input matInput [(ngModel)]="data.text" type="text">
-<mat-checkbox *ngIf="canBeCorrect(data.question)" class="example-margin" [(ngModel)]="data.checked">Correct</mat-checkbox>
+<div *ngIf="data.questionType=='MULTIPLE_CHOICE'|| data.questionType=='CHECKBOXES'">
+  <input matInput [(ngModel)]="data.text" type="text" placeholder="Answer text">
+  <mat-checkbox *ngIf="canBeCorrect(data.question)" class="example-margin" [(ngModel)]="data.checked">Correct</mat-checkbox>
+</div>
+<div *ngIf="data.questionType=='SHORT_ANSWER'" >
+  <input matInput [(ngModel)]="data.text" type="text" placeholder="Answer text">
+  <mat-select (selectionChange)="changeSelectedValue($event)" id="answerTolerance" value="PERFECT_MATCH" class="answerTolerance" placeholder="Answer tolerance">
+    <mat-option value="PERFECT_MATCH">Perfect match</mat-option>
+    <mat-option value="IGNORE_CASING">Ignore casing</mat-option>
+    <mat-option value="ACCEPT_CLOSE">Accept close answers</mat-option>
+  </mat-select>
+</div>
+
 <mat-dialog-actions>
   <button mat-button [mat-dialog-close]="getAnswer()">Add</button>
   <button mat-button mat-dialog-close>Cancel</button>
