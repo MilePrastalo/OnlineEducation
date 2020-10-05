@@ -1,0 +1,16 @@
+<div>
+  <table mat-table [dataSource]="testResults" class="mat-elevation-z8 tableSize">
+    <ng-container matColumnDef="studentName">
+      <th mat-header-cell *cdkHeaderCellDef> Student name</th>
+      <td mat-cell *cdkCellDef="let element"> {{element.student}} </td>
+    </ng-container>
+    <ng-container matColumnDef="testResult">
+      <th mat-header-cell *cdkHeaderCellDef> View Test Results</th>
+      <td mat-cell *cdkCellDef="let element">
+        <button mat-raised-button (click)="viewTest(element.id)">View Test Results</button>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

@@ -38,10 +38,13 @@ export class TestComponent implements OnInit {
 
         const dateDateSplitted = dateDate.split('/');
         const timeSplitted = time.split(':');
-        const startDate = new Date(Number(dateDateSplitted[2]), Number(dateDateSplitted[1]),
+        console.log("time splitted ",timeSplitted);
+        const startDate = new Date(Number(dateDateSplitted[2]), Number(dateDateSplitted[1]) - 1,
           Number(dateDateSplitted[0]), Number(timeSplitted[0]), Number(timeSplitted[1]));
+        console.log(startDate);
         const endDate = moment(startDate).add(this.test.duration, 'm').toDate();
         this.timeRemaining = Math.abs(endDate.getTime() - (new Date()).getTime()) / 1000;
+        console.log('end date', endDate);
         const x = setInterval(() => {
           this.timeRemaining = this.timeRemaining -= 1;
           const minutes = this.timeRemaining / 60;
@@ -141,7 +144,8 @@ export class TestComponent implements OnInit {
       }
     );
   }
-  back(){
+
+  back() {
     this.router.navigateByUrl('course/' + this.test.courseId);
   }
 

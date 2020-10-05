@@ -20,7 +20,14 @@ import rs.eeducation.jwt.JwtAuthenticationEntryPoint
 import rs.eeducation.jwt.JwtRequestFilter
 import rs.eeducation.service.JwtUserDetailsService
 
+open class ParentClass{
 
+}
+class ChildClass: ParentClass() {
+    fun testMethod(){
+
+    }
+}
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -32,6 +39,8 @@ class WebSecurityConfig(
     @Bean
     @Throws(Exception::class)
     override fun authenticationManagerBean(): AuthenticationManager? {
+
+
         return super.authenticationManagerBean()
     }
 

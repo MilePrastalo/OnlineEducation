@@ -19,7 +19,7 @@ class TestDTO {
     constructor(test: Test) {
         id = test.id
         name = test.name
-        val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy hh:mm")
+        val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm")
         date = simpleDateFormat.format(test.date)
         duration = test.duration
         testType = test.testType

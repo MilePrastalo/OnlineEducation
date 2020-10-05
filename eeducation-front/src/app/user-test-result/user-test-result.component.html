@@ -1,0 +1,38 @@
+<app-navbar></app-navbar>
+<div>
+  <h1 class="center">{{testResult.test.name}}</h1>
+  <table mat-table [dataSource]="testResult.test.questions" class="mat-elevation-z8 tableSize">
+    <ng-container matColumnDef="question">
+      <th mat-header-cell *cdkHeaderCellDef> Question</th>
+      <td mat-cell *cdkCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+    <ng-container matColumnDef="correct">
+      <th mat-header-cell *cdkHeaderCellDef> User answers</th>
+      <td mat-cell *cdkCellDef="let element"> {{getQuestionAnswerText(element)}} </td>
+    </ng-container>
+    <ng-container matColumnDef="user">
+      <th mat-header-cell *cdkHeaderCellDef> Correct answers</th>
+      <td mat-cell *cdkCellDef="let element"> {{getquestionCorrectAnswer(element)}} </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-card class="box" id="login-box">
+    <form class="form" [formGroup]="gradeForm" (ngSubmit)="gradeForm.valid && addGrade()">
+      <mat-card-content>
+
+        <mat-form-field class="field-full-width">
+          <input id="grade"
+                 matInput
+                 formControlName="grade"
+                 placeholder="grade"/>
+          <mat-error>grade can not be blank.</mat-error>
+        </mat-form-field>
+
+      </mat-card-content>
+      <button id="createBt" mat-stroked-button color="primary" class="btn-block">Add grade</button>
+      <button type="button" (click)="back()" mat-stroked-button class="btn-block">Back</button>
+    </form>
+  </mat-card>
+</div>
